@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio website - Showcasing my skills, certificates, and projects">
+    <title>Portfolio | Developer & Creator</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --color-primary: #2dd4bf;
+            --color-secondary: #60a5fa;
+            --color-bg-dark: #0b1020;
+            --color-bg-darker: #070b14;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--color-bg-darker) 0%, var(--color-bg-dark) 50%, #1a1f3a 100%);
+            color: #e2e8f0;
+        }
+        
+        .glow {
+            box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(45, 212, 191, 0.4);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 999px;
+            background: rgba(45, 212, 191, 0.2);
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 999px;
+            transition: width 1s ease;
+        }
+        
+        .navbar {
+            backdrop-filter: blur(12px);
+            background: rgba(11, 16, 32, 0.8);
+        }
+
+        /* Responsive Contact Cards */
+        @media (max-width: 640px) {
+            .contact-card {
+                width: 100% !important;
+                max-width: 280px;
+                height: 240px !important;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1024px) {
+            .contact-card {
+                width: 220px !important;
+                height: 220px !important;
+            }
+        }
+    </style>
+</head>
+<style>
+  body {
+    background: radial-gradient(circle at 20% 20%, #0f172a, #020617);
+    overflow-x: hidden;
+  }
+
+  /* Layer dasar gradient */
+  .bg-gradient-layer {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(20,184,166,0.15), rgba(236,72,153,0.1));
+    z-index: -4;
+  }
+
+  /* Layer grid parallax */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(transparent 95%, rgba(236,72,153,0.05) 96%), 
+                      linear-gradient(90deg, transparent 95%, rgba(20,184,166,0.05) 96%);
+    background-size: 80px 80px;
+    z-index: -3;
+    transform: translateZ(0);
+  }
+
+  /* Layer particle (neon glow dots) */
+  .bg-particles {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(20,184,166,0.8);
+    box-shadow: 0 0 10px rgba(20,184,166,0.8);
+    animation: floaty 10s infinite ease-in-out alternate;
+  }
+
+  @keyframes floaty {
+    from { transform: translateY(0px); opacity: 1; }
+    to { transform: translateY(-50px); opacity: 0.5; }
+  }
+
+  /* Glow radial center */
+  .bg-glow {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(236,72,153,0.2), transparent 70%);
+    z-index: -1;
+    transition: transform 0.3s ease;
+  }
+</style>
+
+<body class="antialiased">
+
+<body>
+    
+  <div class="bg-gradient-layer"></div>
+  <div class="bg-grid"></div>
+  <div class="bg-particles" id="particles"></div>
+  <div class="bg-glow" id="glow"></div>
+  
+
+
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full top-0 z-50 border-b border-teal-500/20">
+        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl sm:text-2xl font-bold gradient-text">Portfolio</h1>
+                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                    <a href="#home" class="hover:text-teal-400 transition text-sm lg:text-base">Home</a>
+                    <a href="#skills" class="hover:text-teal-400 transition text-sm lg:text-base">Skills</a>
+                    <a href="#certificates" class="hover:text-teal-400 transition text-sm lg:text-base">Certificates</a>
+                    <a href="#projects" class="hover:text-teal-400 transition text-sm lg:text-base">Projects</a>
+                    <a href="#contact" class="hover:text-teal-400 transition text-sm lg:text-base">Contact</a>
+                </div>
+                <button id="mobileMenuBtn" class="md:hidden text-teal-400">
+                    <i class="fas fa-bars text-xl sm:text-2xl"></i>
+                </button>
+            </div>
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3">
+                <a href="#home" class="block hover:text-teal-400 transition">Home</a>
+                <a href="#skills" class="block hover:text-teal-400 transition">Skills</a>
+                <a href="#certificates" class="block hover:text-teal-400 transition">Certificates</a>
+                <a href="#projects" class="block hover:text-teal-400 transition">Projects</a>
+                <a href="#contact" class="block hover:text-teal-400 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="min-h-screen flex items-center pt-20 sm:pt-24 pb-10 sm:pb-0">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-6 sm:mb-8">
+                    <div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full bg-gradient-to-br from-teal-400 to-blue-500 p-1 glow">
+                        <div class="w-full h-full rounded-full overflow-hidden">
+                            <img src="uploads/me.jpg" alt="Foto Profil Nandra" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 px-4">
+                    Halo, Saya <span class="gradient-text">Nandra</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl text-gray-400 mb-2 px-4">Developer & Creative Enthusiast</p>
+                <div class="flex flex-wrap justify-center gap-2 mb-4 sm:mb-6 px-4">
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-teal-500/20 text-teal-300 border border-teal-500/30">
+                        <i class="fas fa-code mr-1.5"></i>Frontend Developer
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                        <i class="fas fa-gamepad mr-1.5"></i>Game Developer
+                    </span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        <i class="fas fa-laptop-code mr-1.5"></i>Freelancer
+                    </span>
+                </div>
+
+                <!-- About Me Card - Enhanced -->
+                <div class="max-w-4xl mx-auto bg-gradient-to-br from-gray-900/80 to-gray-800/50 rounded-3xl p-1 border border-teal-500/30 mx-4 sm:mx-auto shadow-2xl backdrop-blur-sm">
+                    <div class="bg-gray-900/90 rounded-3xl p-6 sm:p-8">
+                        <!-- Header -->
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-teal-400 flex items-center">
+                                <i class="fas fa-user-circle mr-3 text-teal-500"></i>
+                                About Me
+                            </h2>
+                            <div class="hidden sm:flex items-center gap-2">
+                                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                                <span class="text-xs text-green-400 font-medium">Available for Work</span>
+                            </div>
+                        </div>
+
+                        <!-- Info Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-gradient-to-br from-teal-500/10 to-teal-500/5 rounded-xl p-4 border border-teal-500/20 hover:border-teal-500/40 transition-all">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-id-badge text-teal-400 mr-2"></i>
+                                    <span class="text-xs text-gray-400 font-medium">Full Name</span>
+                                </div>
+                                <p class="text-sm sm:text-base font-semibold text-white">Fachri Nandra Syahputra</p>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-blue-500/10 to-blue-500/5 rounded-xl p-4 border border-blue-500/20 hover:border-blue-500/40 transition-all">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-map-marker-alt text-blue-400 mr-2"></i>
+                                    <span class="text-xs text-gray-400 font-medium">Location</span>
+                                </div>
+                                <p class="text-sm sm:text-base font-semibold text-white">Bekasi, Indonesia</p>
+                            </div>
+                            
+                            <div class="bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-xl p-4 border border-purple-500/20 hover:border-purple-500/40 transition-all">
+                                <div class="flex items-center mb-2">
+                                    <i class="fas fa-briefcase text-purple-400 mr-2"></i>
+                                    <span class="text-xs text-gray-400 font-medium">Status</span>
+                                </div>
+                                <p class="text-sm sm:text-base font-semibold text-white">Open to Opportunities</p>
+                            </div>
+                        </div>
+
+                        <!-- Professional Summary -->
+                        <div class="bg-gradient-to-r from-gray-800/50 to-gray-800/30 rounded-xl p-5 sm:p-6 border border-gray-700/50 mb-5">
+                            <h3 class="text-lg sm:text-xl font-semibold text-teal-300 mb-3 flex items-center">
+                                <i class="fas fa-star text-yellow-400 mr-2"></i>
+                                Professional Summary
+                            </h3>
+                            <p class="text-sm sm:text-base text-gray-300 leading-relaxed text-left">
+                                Passionate <strong class="text-white">16-year-old developer</strong> from <strong class="text-teal-400">Prestasi Prima School</strong> with hands-on experience in <strong class="text-white">full-stack web development</strong> and <strong class="text-white">game design</strong>. Currently running a successful <strong class="text-teal-400">freelance business</strong> in website development while contributing as a developer on Roblox map projects.
+                            </p>
+                        </div>
+
+                        <!-- Key Strengths -->
+                        <div class="mb-5">
+                            <h3 class="text-lg sm:text-xl font-semibold text-teal-300 mb-4 flex items-center">
+                                <i class="fas fa-bolt text-yellow-400 mr-2"></i>
+                                Core Strengths
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div class="flex items-start space-x-3 bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 hover:border-teal-500/30 transition-all">
+                                    <i class="fas fa-check-circle text-teal-400 mt-1"></i>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Responsive UI/UX Design</p>
+                                        <p class="text-xs text-gray-400">Crafting elegant, user-friendly interfaces</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 hover:border-teal-500/30 transition-all">
+                                    <i class="fas fa-check-circle text-teal-400 mt-1"></i>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">  Frontend Development</p>
+                                        <p class="text-xs text-gray-400">Frontend integration</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 hover:border-teal-500/30 transition-all">
+                                    <i class="fas fa-check-circle text-teal-400 mt-1"></i>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Game Development</p>
+                                        <p class="text-xs text-gray-400">Interactive experiences & mechanics</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-3 bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 hover:border-teal-500/30 transition-all">
+                                    <i class="fas fa-check-circle text-teal-400 mt-1"></i>
+                                    <div>
+                                        <p class="text-sm font-semibold text-white">Fast Learner & Adaptable</p>
+                                        <p class="text-xs text-gray-400">Quick to master new technologies</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Career Goals -->
+                        <div class="bg-gradient-to-r from-teal-500/10 via-blue-500/10 to-purple-500/10 rounded-xl p-5 border border-teal-500/30">
+                            <h3 class="text-lg sm:text-xl font-semibold text-teal-300 mb-3 flex items-center">
+                                <i class="fas fa-bullseye text-teal-400 mr-2"></i>
+                                Career Objective
+                            </h3>
+                            <p class="text-sm sm:text-base text-gray-300 leading-relaxed text-left mb-3">
+                                Actively seeking opportunities in the tech industry, particularly in <strong class="text-teal-400">web development</strong>, <strong class="text-blue-400">game design</strong>, and <strong class="text-purple-400">educational platforms</strong>. I believe that <strong class="text-white">age doesn't limit impact</strong>, and I'm ready to learn, collaborate, and contribute to meaningful projects that make a difference.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-xs px-3 py-1 bg-teal-500/20 text-teal-300 rounded-full border border-teal-500/30">Internship</span>
+                                <span class="text-xs px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">Remote Work</span>
+                                <span class="text-xs px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Project-Based</span>
+                                <span class="text-xs px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full border border-pink-500/30">Collaboration</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div class="mt-6 text-center">
+                            <a href="#contact" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold rounded-xl hover:from-teal-600 hover:to-blue-600 transition-all shadow-lg hover:shadow-teal-500/50 text-sm sm:text-base">
+                                <i class="fas fa-paper-plane mr-2"></i>
+                                Let's Work Together
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-12 sm:py-16 md:py-20">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">
+                <span class="gradient-text">Skills & Expertise</span>
+            </h2>
+            <p class="text-center text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">Teknologi yang saya kuasai</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+                <!-- JavaScript -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-yellow-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fab fa-js-square text-2xl sm:text-3xl text-yellow-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">JavaScript</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Frontend & Backend</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all duration-1000 ease-out" data-progress="75"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 75%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">ES6+, React, Node.js, async/await</p>
+                </div>
+
+                <!-- HTML -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-orange-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fab fa-html5 text-2xl sm:text-3xl text-orange-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">HTML5</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Markup & Structure</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-orange-400 to-yellow-500 rounded-full transition-all duration-1000 ease-out" data-progress="90"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Expert - 90%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Semantic HTML, SEO optimization</p>
+                </div>
+
+                <!-- PHP -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fab fa-php text-2xl sm:text-3xl text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">PHP</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Server-side Development</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-purple-400 to-pink-500 rounded-full transition-all duration-1000 ease-out" data-progress="60"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 60%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">PDO, MySQL, REST API</p>
+                </div>
+
+                <!-- VS Code -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fas fa-code text-2xl sm:text-3xl text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">VS Code</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Code Editor Mastery</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full transition-all duration-1000 ease-out" data-progress="88"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Advanced - 88%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Extensions, debugging, Git integration</p>
+                </div>
+
+                <!-- Roblox Studio -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-red-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fas fa-gamepad text-2xl sm:text-3xl text-red-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">Roblox Studio</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Game Development</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-red-400 to-pink-500 rounded-full transition-all duration-1000 ease-out" data-progress="90"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Advanced - 90%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Lua scripting, game mechanics, UI design</p>
+                </div>
+
+                <!-- Tailwind CSS -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fas fa-palette text-2xl sm:text-3xl text-teal-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">Tailwind CSS</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Utility-first Styling</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-teal-400 to-blue-500 rounded-full transition-all duration-1000 ease-out" data-progress="80"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Advanced - 80%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Responsive design, custom configs, dark mode</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificates Section -->
+    <section id="certificates" class="py-12 sm:py-16 md:py-20 bg-gray-900/30">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">
+                <span class="gradient-text">Certificates & Achievements</span>
+            </h2>
+            <p class="text-center text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">Sertifikasi dan pencapaian saya</p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+                <!-- Certificate 1 -->
+                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
+                    <div class="h-32 sm:h-40 bg-gradient-to-br from-teal-500/20 to-blue-500/20 flex items-center justify-center">
+                        <i class="fas fa-certificate text-5xl sm:text-6xl text-teal-400"></i>
+                    </div>
+                    <div class="p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-semibold mb-2">Web Development Fundamentals</h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-1">
+                            <i class="fas fa-building mr-2"></i>Coursera / Google
+                        </p>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">
+                            <i class="fas fa-calendar mr-2"></i>Januari 2024
+                        </p>
+                        <button class="w-full bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm sm:text-base">
+                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Certificate 2 -->
+                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
+                    <div class="h-32 sm:h-40 bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
+                        <i class="fas fa-code text-5xl sm:text-6xl text-purple-400"></i>
+                    </div>
+                    <div class="p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-semibold mb-2">JavaScript Advanced Concepts</h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-1">
+                            <i class="fas fa-building mr-2"></i>Udemy / Maximilian Schwarzmüller
+                        </p>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">
+                            <i class="fas fa-calendar mr-2"></i>Maret 2024
+                        </p>
+                        <button class="w-full bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm sm:text-base">
+                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Certificate 3 -->
+                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
+                    <div class="h-32 sm:h-40 bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center">
+                        <i class="fas fa-database text-5xl sm:text-6xl text-orange-400"></i>
+                    </div>
+                    <div class="p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-semibold mb-2">PHP & MySQL Complete Course</h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-1">
+                            <i class="fas fa-building mr-2"></i>Dicoding Indonesia
+                        </p>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">
+                            <i class="fas fa-calendar mr-2"></i>01 October 2025
+                        </p>
+                        <button onclick="openCertificate('uploads/sertif 1.WebP')" class="w-full bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm sm:text-base">
+                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Certificate 4 -->
+                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
+                    <div class="h-32 sm:h-40 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center">
+                        <i class="fas fa-microphone-alt text-5xl sm:text-6xl text-cyan-400"></i>
+                    </div>
+                    <div class="p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-semibold mb-2">Sertifikat Seminar Eduverse SENA 74</h3>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-1">
+                            <i class="fas fa-graduation-cap mr-2"></i>Public Speaking & Presentasi
+                        </p>
+                        <p class="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">
+                            <i class="fas fa-calendar mr-2"></i>September 2024
+                        </p>
+                        <button onclick="openCertificate('uploads/sena74.WebP')" class="w-full bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm sm:text-base">
+                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-12 sm:py-16 md:py-20 bg-gray-900/20">
+        <div class="container mx-auto px-4 sm:px-6">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">
+                <span class="gradient-text">My Projects</span>
+            </h2>
+            <p class="text-center text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">Beberapa karya dan eksperimen saya</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+                <!-- Project 1 -->
+                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
+                    <img src="uploads/gocinema.png" alt="Project 1 Screenshot" class="w-full h-40 sm:h-48 object-cover">
+                    <div class="p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-semibold mb-2">Kasir Web App</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">
+                            Aplikasi untuk memudahkan pelanggan untuk memesan tiket dari rumah.
+                        </p>
+                        <a href="https://gocinema.netlify.app/" target="_blank" class="inline-block bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm">
+                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Project
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
+                    <img src="uploads/umkm.png" alt="Project 2 Screenshot" class="w-full h-40 sm:h-48 object-cover">
+                    <div class="p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-semibold mb-2">Website UMKM</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">
+                            Website untuk membantu melariskan UMKM sekitar.
+                        </p>
+                        <a href="https://waroengnarji-creponne-1d5c01.netlify.app/" target="_blank" class="inline-block bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm">
+                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Project
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
+                    <img src="uploads/mount.png" alt="Project 3 Screenshot" class="w-full h-40 sm:h-48 object-cover">
+                    <div class="p-4 sm:p-6">
+                        <h3 class="text-lg sm:text-xl font-semibold mb-2">Game Roblox - Mount Obby</h3>
+                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">
+                            Game simulator pendakian untuk refreshing dan bersenang-senang, disuguhkan dengan grafik memukau dan berbagai UI yang menarik.
+                        </p>
+                        <a href="https://www.roblox.com/games/1234567890/mount" target="_blank" class="inline-block bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm">
+                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Project
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative py-16 sm:py-20 md:py-24 bg-gradient-to-b from-[#0a0f1c] via-[#0e1627] to-[#0a0f1c] text-white overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 text-center relative z-10">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-teal-400 tracking-wide">Let's Connect</h2>
+            <p class="text-gray-400 mb-8 sm:mb-12 max-w-xl mx-auto text-sm sm:text-base px-4">Temukan saya di platform favoritmu. Jangan ragu untuk terhubung dan berbicara tentang proyek, desain, atau ide gila lainnya 🚀</p>
+            
+            <div class="flex flex-wrap justify-center gap-6 sm:gap-8 max-w-7xl mx-auto">
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/FachriNandraSyahputra" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-5 sm:p-6 w-60 h-60 rounded-tl-[40px] rounded-br-[20px] shadow-[0_0_20px_#00f2ff30] hover:shadow-[0_0_30px_#00f2ff80] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
+                    <img src="uploads/linkedin.png" alt="LinkedIn" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-125 group-hover:scale-110 transition-transform duration-500" />
+                    <h3 class="text-lg sm:text-xl font-semibold text-teal-300 mb-1">LinkedIn</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">@Fachri Nandra</p>
+                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-teal-500/20 group-hover:bg-teal-500/40 border border-teal-400 rounded-full transition-all duration-300">
+                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Kunjungi
+                    </span>
+                    <div class="absolute inset-0 rounded-tl-[40px] rounded-br-[20px] border border-teal-500/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
+                </a>
+                
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@nandrooww" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-bl from-[#10172d] to-[#182747] p-5 sm:p-6 w-60 h-60 rounded-tr-[40px] rounded-bl-[10px] shadow-[0_0_20px_#00fff530] hover:shadow-[0_0_30px_#00fff580] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
+                    <img src="uploads/tiktok.png" alt="TikTok" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-110 group-hover:scale-110 transition-transform duration-500" />
+                    <h3 class="text-lg sm:text-xl font-semibold text-cyan-400 mb-1">TikTok</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">@nandrooww</p>
+                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-cyan-500/20 group-hover:bg-cyan-500/40 border border-cyan-400 rounded-full transition-all duration-300">
+                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Kunjungi
+                    </span>
+                    <div class="absolute inset-0 rounded-tr-[40px] rounded-bl-[10px] border border-cyan-400/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
+                </a>
+                
+                <!-- Instagram -->
+                <a href="https://instagram.com/ndr4._sys" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-tl from-[#141b2e] to-[#1b2a48] p-5 sm:p-6 w-60 h-60 rounded-b-[40px] shadow-[0_0_20px_#ff00ff30] hover:shadow-[0_0_30px_#ff00ff80] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
+                    <img src="uploads/ig.png" alt="Instagram" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-110 group-hover:scale-110 transition-transform duration-500" />
+                    <h3 class="text-lg sm:text-xl font-semibold text-pink-400 mb-1">Instagram</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">@ndr4._sys</p>
+                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-pink-500/20 group-hover:bg-pink-500/40 border border-pink-400 rounded-full transition-all duration-300">
+                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Kunjungi
+                    </span>
+                    <div class="absolute inset-0 rounded-b-[40px] border border-pink-400/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
+                </a>
+                
+                <!-- WhatsApp -->
+                <a href="https://wa.me/6285161858758?text=Halo%20Nandra%2C%20saya%20ingin%20bertanya%20tentang%20project%20Anda" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-tr from-[#0d1b24] to-[#11313d] p-5 sm:p-6 w-60 h-60 rounded-bl-[40px] rounded-tr-[15px] shadow-[0_0_20px_#00ff8030] hover:shadow-[0_0_30px_#00ff8080] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
+                    <img src="uploads/pp wa.png" alt="WhatsApp" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-110 group-hover:scale-110 transition-transform duration-500" />
+                    <h3 class="text-lg sm:text-xl font-semibold text-green-400 mb-1">WhatsApp</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">+62 851 6185 8758</p>
+                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-green-500/20 group-hover:bg-green-500/40 border border-green-400 rounded-full transition-all duration-300">
+                        <i class="fas fa-comment-dots mr-1 sm:mr-2"></i>Chat
+                    </span>
+                    <div class="absolute inset-0 rounded-bl-[40px] rounded-tr-[15px] border border-green-400/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
+                </a>
+                
+                <!-- Telegram -->
+                <a href="https://t.me/FachriNandra" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-tr from-[#101a27] to-[#1b2f3c] p-5 sm:p-6 w-60 h-60 rounded-tr-[50px] rounded-bl-[20px] shadow-[0_0_20px_#00c3ff30] hover:shadow-[0_0_30px_#00c3ff80] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
+                    <img src="uploads/telegram.png" alt="Telegram" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-110 group-hover:scale-110 transition-transform duration-500" />
+                    <h3 class="text-lg sm:text-xl font-semibold text-sky-400 mb-1">Telegram</h3>
+                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">@Fachri Nandra</p>
+                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-sky-500/20 group-hover:bg-sky-500/40 border border-sky-400 rounded-full transition-all duration-300">
+                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Kunjungi
+                    </span>
+                    <div class="absolute inset-0 rounded-tr-[50px] rounded-bl-[20px] border border-sky-400/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Background Glow Orbs -->
+        <div class="absolute top-10 left-10 sm:left-20 w-48 sm:w-72 h-48 sm:h-72 bg-teal-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-10 right-10 sm:right-24 w-40 sm:w-64 h-40 sm:h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+    </section>
+
+    <!-- Certificate Modal -->
+    <div id="certificateModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 backdrop-blur-sm px-4">
+        <div class="bg-gray-900 rounded-2xl p-3 sm:p-4 max-w-4xl w-full relative border border-teal-500/30 shadow-lg shadow-teal-500/10">
+            <button onclick="closeCertificate()" class="absolute top-2 right-2 sm:top-3 sm:right-3 text-gray-400 hover:text-white transition z-10">
+                <i class="fas fa-times text-xl sm:text-2xl"></i>
+            </button>
+            <img id="certificateImage" src="" alt="Certificate Image" class="w-full rounded-xl mt-8 sm:mt-4 shadow-lg border border-gray-800/50">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900/50 py-6 sm:py-8 border-t border-teal-500/20">
+        <div class="container mx-auto px-4 sm:px-6 text-center">
+            <p class="text-gray-400 text-sm sm:text-base">&copy; 2024 Fachri Nandra Syahputra. All rights reserved.</p>
+            <p class="text-gray-500 text-xs sm:text-sm mt-2">Built with 💙 using Tailwind CSS</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Progress Bar Animation
+        const bars = document.querySelectorAll(".progress-fill");
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progress = entry.target.dataset.progress;
+                    entry.target.style.width = progress + "%";
+                }
+            });
+        }, { threshold: 0.3 });
+
+        bars.forEach(bar => {
+            bar.style.width = "0%";
+            observer.observe(bar);
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Certificate Modal Functions
+        function openCertificate(imageSrc) {
+            const modal = document.getElementById('certificateModal');
+            const img = document.getElementById('certificateImage');
+            img.src = imageSrc;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent scroll
+        }
+
+        function closeCertificate() {
+            const modal = document.getElementById('certificateModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Enable scroll
+        }
+
+        // Close modal when clicking outside
+        const modal = document.getElementById('certificateModal');
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) closeCertificate();
+            });
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    if (mobileMenu) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (mobileMenu && mobileMenuBtn) {
+                if (!mobileMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
+        });
+
+        // Handle escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCertificate();
+            }
+        });
+    </script>
+    <script>
+  // --- Generate particle dots ---
+  const particleContainer = document.getElementById('particles');
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.top = Math.random() * 100 + '%';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = 8 + Math.random() * 6 + 's';
+    p.style.background = Math.random() > 0.5 ? 'rgba(20,184,166,0.8)' : 'rgba(236,72,153,0.8)';
+    p.style.boxShadow = `0 0 15px ${p.style.background}`;
+    particleContainer.appendChild(p);
+  }
+
+  // --- Parallax effect for mouse movement ---
+  const grid = document.querySelector('.bg-grid');
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    grid.style.transform = `translate(${x}px, ${y}px) scale(1.05)`;
+    glow.style.transform = `translate(${x * -0.3}px, ${y * -0.3}px)`;
+  });
+
+  // --- Parallax scroll depth ---
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY * 0.1;
+    grid.style.transform = `translateY(${scrollY}px)`;
+    glow.style.transform = `translateY(${scrollY * -0.5}px)`;
+  });
+</script>
+
+</body>
+</html>
