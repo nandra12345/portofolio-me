@@ -16,7 +16,10 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+
     <style>
         * {
             font-family: 'Poppins', sans-serif;
@@ -88,6 +91,105 @@
                 height: 220px !important;
             }
         }
+
+        /* Lazy Loading Image Effects */
+        .lazy-image {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            filter: blur(10px);
+        }
+
+        .lazy-image.loaded {
+            opacity: 1;
+            transform: scale(1);
+            filter: blur(0);
+        }
+
+        .image-placeholder {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Typing Animation */
+        .typing {
+            border-right: 2px solid #2dd4bf;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: #2dd4bf; }
+            51%, 100% { border-color: transparent; }
+        }
+
+        /* Enhanced Hover Effects */
+        .card-hover:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(45, 212, 191, 0.5);
+        }
+
+        .glow-hover:hover {
+            box-shadow: 0 0 30px rgba(45, 212, 191, 0.6), 0 0 60px rgba(45, 212, 191, 0.3);
+        }
+
+        /* Floating Animation for Profile Photo */
+        .floating-profile {
+          animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+
+        /* Tilt-on-Hover Effect */
+        .tilt-on-hover {
+          transition: transform 0.3s ease;
+        }
+
+        .tilt-on-hover:hover {
+          transform: scale(1.05) rotate(5deg);
+        }
     </style>
 </head>
 <style>
@@ -150,8 +252,6 @@
 </style>
 
 <body class="antialiased">
-
-<body>
     
   <div class="bg-gradient-layer"></div>
   <div class="bg-grid"></div>
@@ -172,26 +272,62 @@
                     <a href="#projects" class="hover:text-teal-400 transition text-sm lg:text-base">Projects</a>
                     <a href="#contact" class="hover:text-teal-400 transition text-sm lg:text-base">Contact</a>
                 </div>
-                <button id="mobileMenuBtn" class="md:hidden text-teal-400">
-                    <i class="fas fa-bars text-xl sm:text-2xl"></i>
+                <button id="mobileMenuBtn" class="md:hidden text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-2" aria-label="Toggle mobile menu" aria-expanded="false">
+                    <svg id="hamburgerIcon" class="w-6 h-6 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
                 </button>
             </div>
-            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3">
-                <a href="#home" class="block hover:text-teal-400 transition">Home</a>
-                <a href="#skills" class="block hover:text-teal-400 transition">Skills</a>
-                <a href="#certificates" class="block hover:text-teal-400 transition">Certificates</a>
-                <a href="#projects" class="block hover:text-teal-400 transition">Projects</a>
-                <a href="#contact" class="block hover:text-teal-400 transition">Contact</a>
+        </div>
+
+        <!-- Premium Mobile Navigation Overlay -->
+        <div id="mobileNavOverlay" class="fixed inset-0 z-40 hidden md:hidden">
+            <!-- Backdrop -->
+            <div id="mobileNavBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
+
+            <!-- Menu Container -->
+            <div id="mobileNavContainer" class="relative flex items-center justify-center h-full">
+                <nav id="mobileNavMenu" class="bg-gray-900/80 backdrop-blur-xl border border-teal-500/20 rounded-3xl p-8 mx-4 max-w-sm w-full shadow-2xl shadow-teal-500/10" role="navigation" aria-label="Mobile navigation">
+                    <div class="flex flex-col space-y-6">
+                        <a href="#home" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="0">
+                            <span class="relative z-10">Home</span>
+                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
+                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="#skills" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="1">
+                            <span class="relative z-10">Skills</span>
+                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
+                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="#certificates" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="2">
+                            <span class="relative z-10">Certificates</span>
+                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
+                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="#projects" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="3">
+                            <span class="relative z-10">Projects</span>
+                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
+                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                        <a href="#contact" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="4">
+                            <span class="relative z-10">Contact</span>
+                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
+                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        </a>
+                    </div>
+                </nav>
             </div>
         </div>
     </nav>
 
     <!-- Home Section -->
-    <section id="home" class="min-h-screen flex items-center pt-20 sm:pt-24 pb-10 sm:pb-0">
+    <section id="home" class="min-h-screen flex items-center pt-20 sm:pt-24 pb-10 sm:pb-0 fade-in">
         <div class="container mx-auto px-4 sm:px-6">
             <div class="max-w-4xl mx-auto text-center">
                 <div class="mb-6 sm:mb-8">
-                    <div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full bg-gradient-to-br from-teal-400 to-blue-500 p-1 glow">
+                    <div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full bg-gradient-to-br from-teal-400 to-blue-500 p-1 glow floating-profile tilt-on-hover">
                         <div class="w-full h-full rounded-full overflow-hidden">
                             <img src="uploads/me.jpg" alt="Foto Profil Nandra" class="w-full h-full object-cover">
                         </div>
@@ -199,7 +335,7 @@
                 </div>
 
                 <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 px-4">
-                    Halo, Saya <span class="gradient-text">Nandra</span>
+                    Halo, Saya <span class="gradient-text typing">Nandra</span>
                 </h1>
                 <p class="text-base sm:text-lg md:text-xl text-gray-400 mb-2 px-4">Developer & Creative Enthusiast</p>
                 <div class="flex flex-wrap justify-center gap-2 mb-4 sm:mb-6 px-4">
@@ -336,7 +472,7 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-12 sm:py-16 md:py-20">
+    <section id="skills" class="py-12 sm:py-16 md:py-20 slide-in-left">
         <div class="container mx-auto px-4 sm:px-6">
             <h2 class="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">
                 <span class="gradient-text">Skills & Expertise</span>
@@ -345,7 +481,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
                 <!-- JavaScript -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="JavaScript" data-description="Dynamic programming language for web development, enabling interactive and responsive user interfaces with modern features like ES6+ syntax, asynchronous programming, and framework integration." data-level="Intermediate">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-yellow-500/20 flex items-center justify-center mr-3 sm:mr-4">
                             <i class="fab fa-js-square text-2xl sm:text-3xl text-yellow-400"></i>
@@ -363,7 +499,7 @@
                 </div>
 
                 <!-- HTML -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="HTML5" data-description="Modern markup language for structuring web content with semantic elements, accessibility features, and SEO optimization for better search engine visibility." data-level="Expert">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-orange-500/20 flex items-center justify-center mr-3 sm:mr-4">
                             <i class="fab fa-html5 text-2xl sm:text-3xl text-orange-400"></i>
@@ -381,7 +517,7 @@
                 </div>
 
                 <!-- PHP -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="PHP" data-description="Versatile server-side scripting language for web development, enabling dynamic content generation, database interactions, and robust backend logic with extensive library support and framework integration." data-level="Intermediate">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3 sm:mr-4">
                             <i class="fab fa-php text-2xl sm:text-3xl text-purple-400"></i>
@@ -399,7 +535,7 @@
                 </div>
 
                 <!-- VS Code -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="VS Code" data-description="Advanced code editor with extensive customization, powerful debugging tools, Git integration, and a vast extension ecosystem for enhanced productivity across multiple programming languages." data-level="Advanced">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mr-3 sm:mr-4">
                             <i class="fas fa-code text-2xl sm:text-3xl text-blue-400"></i>
@@ -417,7 +553,7 @@
                 </div>
 
                 <!-- Roblox Studio -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="Roblox Studio" data-description="Comprehensive game development platform for creating immersive Roblox experiences, featuring Lua scripting, advanced game mechanics, intuitive UI design tools, and collaborative development features." data-level="Advanced">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-red-500/20 flex items-center justify-center mr-3 sm:mr-4">
                             <i class="fas fa-gamepad text-2xl sm:text-3xl text-red-400"></i>
@@ -435,7 +571,7 @@
                 </div>
 
                 <!-- Tailwind CSS -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover">
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="Tailwind CSS" data-description="Utility-first CSS framework that enables rapid UI development with responsive design, custom configurations, dark mode support, and a highly customizable design system." data-level="Advanced">
                     <div class="flex items-center mb-4">
                         <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal-500/20 flex items-center justify-center mr-3 sm:mr-4">
                             <i class="fas fa-palette text-2xl sm:text-3xl text-teal-400"></i>
@@ -451,12 +587,102 @@
                     <p class="text-xs sm:text-sm text-gray-400">Advanced - 80%</p>
                     <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Responsive design, custom configs, dark mode</p>
                 </div>
+
+                <!-- CSS -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="CSS" data-description="Fundamental styling language for creating responsive, animated, and visually appealing web interfaces using modern CSS techniques, including Flexbox, Grid, and CSS animations." data-level="Advanced">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fab fa-css3-alt text-2xl sm:text-3xl text-blue-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">CSS</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Styling & Animations</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full transition-all duration-1000 ease-out" data-progress="90"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Advanced - 90%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Responsive design, animations, frameworks</p>
+                </div>
+
+                <!-- UI/UX Design -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="UI/UX Design" data-description="Designing intuitive and user-friendly interfaces with a strong focus on user experience, wireframing, prototyping, and user research to create engaging digital experiences." data-level="Intermediate">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fas fa-pencil-ruler text-2xl sm:text-3xl text-purple-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">UI/UX Design</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Interface Design</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-purple-400 to-pink-500 rounded-full transition-all duration-1000 ease-out" data-progress="70"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 70%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Wireframing, prototyping, user research</p>
+                </div>
+
+                <!-- Figma -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="Figma" data-description="Collaborative design and prototyping tool for creating interfaces, prototypes, and design systems with real-time collaboration, version control, and extensive plugin ecosystem." data-level="Intermediate">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-pink-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fab fa-figma text-2xl sm:text-3xl text-pink-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">Figma</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Design Tool</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-pink-400 to-red-500 rounded-full transition-all duration-1000 ease-out" data-progress="70"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 70%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Prototyping, collaboration, design systems</p>
+                </div>
+
+                <!-- Laravel -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="Laravel" data-description="Elegant PHP framework for building robust web applications with MVC architecture, expressive routing, powerful ORM, and comprehensive database integration." data-level="Beginner">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-red-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fab fa-laravel text-2xl sm:text-3xl text-red-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">Laravel</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">PHP Framework</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-red-400 to-orange-500 rounded-full transition-all duration-1000 ease-out" data-progress="40"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Beginner - 40%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">MVC, routing, database integration</p>
+                </div>
+
+                <!-- MySQL -->
+                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="MySQL" data-description="Powerful relational database management system for efficient data storage, retrieval, and management in web applications with advanced querying capabilities and performance optimization." data-level="Intermediate">
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-orange-500/20 flex items-center justify-center mr-3 sm:mr-4">
+                            <i class="fas fa-database text-2xl sm:text-3xl text-orange-400"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg sm:text-xl font-semibold">MySQL</h3>
+                            <p class="text-xs sm:text-sm text-gray-400">Database Management</p>
+                        </div>
+                    </div>
+                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
+                        <div class="progress-fill h-full bg-gradient-to-r from-orange-400 to-yellow-500 rounded-full transition-all duration-1000 ease-out" data-progress="65"></div>
+                    </div>
+                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 65%</p>
+                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Queries, optimization, data modeling</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Certificates Section -->
-    <section id="certificates" class="py-12 sm:py-16 md:py-20 bg-gray-900/30">
+    <section id="certificates" class="py-12 sm:py-16 md:py-20 bg-gray-900/30 slide-in-right">
         <div class="container mx-auto px-4 sm:px-6">
             <h2 class="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">
                 <span class="gradient-text">Certificates & Achievements</span>
@@ -472,12 +698,12 @@
                     <div class="p-4 sm:p-6">
                         <h3 class="text-lg sm:text-xl font-semibold mb-2">Web Development Fundamentals</h3>
                         <p class="text-xs sm:text-sm text-gray-400 mb-1">
-                            <i class="fas fa-building mr-2"></i>Coursera / Google
+                            <i class="fas fa-building mr-2"></i>Dicoding Indonesia
                         </p>
                         <p class="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">
-                            <i class="fas fa-calendar mr-2"></i>Januari 2024
+                            <i class="fas fa-calendar mr-2"></i>Oktober 2025
                         </p>
-                        <button class="w-full bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm sm:text-base">
+                        <button onclick="openCertificate('uploads/web.png')" class="w-full bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm sm:text-base">
                             <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
                         </button>
                     </div>
@@ -676,6 +902,26 @@
         </div>
     </div>
 
+    <!-- Skill Popup Modal -->
+    <div id="skillModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 backdrop-blur-sm px-4">
+        <div class="bg-gray-900/90 backdrop-blur-md rounded-2xl p-6 sm:p-8 max-w-md w-full relative border border-teal-500/30 shadow-lg shadow-teal-500/10 animate__animated animate__fadeInUp">
+            <button onclick="closeSkillPopup()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition z-10">
+                <i class="fas fa-times text-xl sm:text-2xl"></i>
+            </button>
+            <div class="text-center">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center mb-4">
+                    <i id="skillIcon" class="fas fa-code text-3xl sm:text-4xl text-white"></i>
+                </div>
+                <h3 id="skillName" class="text-xl sm:text-2xl font-bold text-teal-400 mb-2">Skill Name</h3>
+                <p id="skillDescription" class="text-gray-300 text-sm sm:text-base mb-4 leading-relaxed">Skill description here.</p>
+                <div class="bg-gray-800/50 rounded-lg p-4">
+                    <p class="text-sm text-gray-400 mb-2">Proficiency Level</p>
+                    <p id="skillLevel" class="text-lg font-semibold text-teal-300">Advanced</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-gray-900/50 py-6 sm:py-8 border-t border-teal-500/20">
         <div class="container mx-auto px-4 sm:px-6 text-center">
@@ -702,15 +948,7 @@
             observer.observe(bar);
         });
 
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
 
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
 
         // Certificate Modal Functions
         function openCertificate(imageSrc) {
@@ -765,7 +1003,123 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeCertificate();
+                closeSkillPopup();
             }
+        });
+
+        // Skill Popup Modal Functions
+        function openSkillPopup(element) {
+            const modal = document.getElementById('skillModal');
+            const skillName = document.getElementById('skillName');
+            const skillDescription = document.getElementById('skillDescription');
+            const skillLevel = document.getElementById('skillLevel');
+            const skillIcon = document.getElementById('skillIcon');
+
+            // Get data from clicked element
+            const name = element.getAttribute('data-name');
+            const description = element.getAttribute('data-description');
+            const level = element.getAttribute('data-level');
+
+            // Set modal content
+            skillName.textContent = name;
+            skillDescription.textContent = description;
+            skillLevel.textContent = level;
+
+            // Set icon based on skill (you can expand this)
+            const iconMap = {
+                'Tailwind CSS': 'fa-palette',
+                'CSS': 'fa-css3-alt',
+                'UI/UX Design': 'fa-pencil-ruler',
+                'Figma': 'fa-figma',
+                'Laravel': 'fa-laravel',
+                'MySQL': 'fa-database'
+            };
+            skillIcon.className = `fas ${iconMap[name] || 'fa-code'} text-3xl sm:text-4xl text-white`;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSkillPopup() {
+            const modal = document.getElementById('skillModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close skill modal when clicking outside
+        const skillModal = document.getElementById('skillModal');
+        if (skillModal) {
+            skillModal.addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) closeSkillPopup();
+            });
+        }
+
+        // Lazy Loading Images
+        const lazyImages = document.querySelectorAll('.lazy-image');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        lazyImages.forEach(img => {
+            imageObserver.observe(img);
+        });
+
+        // Scroll Animations
+        const scrollElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right');
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        scrollElements.forEach(el => {
+            scrollObserver.observe(el);
+        });
+
+        // Typing Animation
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.textContent = '';
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing animation when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const typingElement = document.querySelector('.typing');
+            if (typingElement) {
+                const text = typingElement.textContent;
+                typeWriter(typingElement, text, 150);
+            }
+        });
+
+        // Enhanced Hover Effects
+        const hoverElements = document.querySelectorAll('.glow-hover');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                el.style.transform = 'scale(1.05)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'scale(1)';
+            });
         });
     </script>
     <script>
@@ -802,3 +1156,4 @@
 
 </body>
 </html>
+  
