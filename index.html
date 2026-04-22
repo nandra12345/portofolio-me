@@ -3,419 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio website - Showcasing my skills, certificates, and projects">
-    <title>Portfolio | Developer & Creator</title>
-    
-    <!-- Tailwind CSS CDN - Async loading -->
-    <script src="https://cdn.tailwindcss.com" async></script>
-    
-    <!-- Google Fonts -->
+    <meta name="description" content="Portfolio - Fachri Nandra Syahputra | Developer & Creative Enthusiast">
+    <title>Nandra | Developer & Creator</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Syne (display) + DM Sans (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
 
-    <!-- Resource Hints -->
+    <!-- Resource hints -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-    <link rel="dns-prefetch" href="//cdn.tailwindcss.com">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
-
-    <!-- Custom Styles -->
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="style.css"></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        * {
-            font-family: 'Poppins', sans-serif;
-        }
-        
+        /* ═══════════════════════════ TOKENS ═══════════════════════════ */
         :root {
-            --color-primary: #2dd4bf;
-            --color-secondary: #60a5fa;
-            --color-bg-dark: #0b1020;
-            --color-bg-darker: #070b14;
+            --bg:          #030B18;
+            --bg-surface:  #071120;
+            --bg-card:     rgba(8, 18, 36, 0.88);
+            --border:      rgba(45, 212, 191, 0.15);
+            --border-h:    rgba(45, 212, 191, 0.42);
+            --teal:        #2DD4BF;
+            --teal-d:      rgba(45, 212, 191, 0.10);
+            --teal-glow:   rgba(45, 212, 191, 0.30);
+            --violet:      #818CF8;
+            --violet-d:    rgba(129, 140, 248, 0.10);
+            --amber:       #FBBF24;
+            --amber-d:     rgba(251, 191, 36, 0.10);
+            --txt:         #EFF6FF;
+            --txt-2:       #94A3B8;
+            --txt-3:       #3D5570;
         }
-        
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
         body {
-            background: linear-gradient(135deg, var(--color-bg-darker) 0%, var(--color-bg-dark) 50%, #1a1f3a 100%);
-            color: #e2e8f0;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--txt);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        .glow {
-            box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
-        }
-        
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(45, 212, 191, 0.4);
-        }
-        
+
+        /* ═══════════════════════════ TYPOGRAPHY ═══════════════════════════ */
+        .font-display { font-family: 'Syne', sans-serif; }
+
         .gradient-text {
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+            background: linear-gradient(130deg, var(--teal) 0%, var(--violet) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        
-        .progress-bar {
-            height: 8px;
-            border-radius: 999px;
-            background: rgba(45, 212, 191, 0.2);
-            overflow: hidden;
+        .gradient-text-warm {
+            background: linear-gradient(130deg, var(--teal) 10%, var(--amber) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
-            border-radius: 999px;
-            transition: width 1s ease;
+
+        /* ═══════════════════════════ BACKGROUNDS ═══════════════════════════ */
+        .bg-gradient-layer {
+            position: fixed; inset: 0; z-index: -4; pointer-events: none;
+            background:
+                radial-gradient(ellipse 80% 60% at 10% 0%,  rgba(45,212,191,.08)  0%, transparent 55%),
+                radial-gradient(ellipse 60% 50% at 90% 100%, rgba(129,140,248,.07) 0%, transparent 55%),
+                radial-gradient(ellipse 50% 40% at 50% 50%,  rgba(251,191,36,.03)  0%, transparent 65%);
         }
-        
+        .bg-grid {
+            position: fixed; inset: 0; z-index: -3; pointer-events: none;
+            background-image:
+                linear-gradient(rgba(45,212,191,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(45,212,191,.025) 1px, transparent 1px);
+            background-size: 64px 64px;
+        }
+        .bg-particles { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
+        .particle {
+            position: absolute; width: 2px; height: 2px; border-radius: 50%;
+            background: var(--teal); box-shadow: 0 0 6px var(--teal);
+            animation: floaty 12s infinite ease-in-out alternate;
+        }
+        @keyframes floaty {
+            from { transform: translateY(0) translateX(0); opacity: .8; }
+            to   { transform: translateY(-44px) translateX(10px); opacity: .15; }
+        }
+        .bg-glow {
+            position: fixed; inset: 0; z-index: -1; pointer-events: none;
+            background: radial-gradient(circle at 50% 50%, rgba(129,140,248,.04), transparent 70%);
+            transition: transform .4s ease;
+        }
+
+        /* ═══════════════════════════ NAVBAR ═══════════════════════════ */
         .navbar {
-            backdrop-filter: blur(12px);
-            background: rgba(11, 16, 32, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(3, 11, 24, .78);
+            border-bottom: 1px solid rgba(45,212,191,.08);
+        }
+        .nav-link-item {
+            font-size: .875rem; font-weight: 500;
+            color: var(--txt-2);
+            transition: color .25s;
+            position: relative; padding-bottom: 2px;
+        }
+        .nav-link-item::after {
+            content: ''; position: absolute; bottom: -2px; left: 0;
+            width: 0; height: 2px;
+            background: linear-gradient(90deg, var(--teal), var(--violet));
+            border-radius: 999px; transition: width .3s;
+        }
+        .nav-link-item:hover { color: var(--teal); }
+        .nav-link-item:hover::after { width: 100%; }
+
+        /* ═══════════════════════════ CARDS ═══════════════════════════ */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: all .35s cubic-bezier(.34,1.56,.64,1);
+            position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 65% 0%, rgba(45,212,191,.07), transparent 60%);
+            opacity: 0; transition: opacity .35s; border-radius: inherit; pointer-events: none;
+        }
+        .card:hover {
+            border-color: var(--border-h);
+            transform: translateY(-7px);
+            box-shadow: 0 22px 60px rgba(45,212,191,.14), 0 0 0 1px rgba(45,212,191,.09);
+        }
+        .card:hover::before { opacity: 1; }
+        .card-inner { position: relative; z-index: 1; }
+        .card-hover { /* alias used by JS/HTML */ }
+
+        /* ═══════════════════════════ PROGRESS BAR ═══════════════════════════ */
+        .progress-bar {
+            height: 6px; border-radius: 999px;
+            background: rgba(255,255,255,.05); overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; border-radius: 999px;
+            background: linear-gradient(90deg, var(--teal), var(--violet));
+            transition: width 1.2s cubic-bezier(.34,1.56,.64,1);
+            box-shadow: 0 0 10px rgba(45,212,191,.45);
         }
 
-        /* Responsive Contact Cards */
-        @media (max-width: 640px) {
-            .contact-card {
-                width: 100% !important;
-                max-width: 280px;
-                height: 240px !important;
-            }
+        /* ═══════════════════════════ LABELS / BADGES ═══════════════════════════ */
+        .section-label {
+            display: inline-flex; align-items: center; gap: 7px;
+            font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+            color: var(--teal);
+            background: var(--teal-d); border: 1px solid rgba(45,212,191,.22);
+            border-radius: 999px; padding: 6px 14px; margin-bottom: 14px;
+        }
+        .section-heading { font-family: 'Syne', sans-serif; font-weight: 800; line-height: 1.1; }
+
+        .skill-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            font-size: .65rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+            padding: 3px 10px; border-radius: 999px;
+        }
+        .badge-expert       { background: rgba(45,212,191,.14);  color: #2DD4BF; border: 1px solid rgba(45,212,191,.28); }
+        .badge-advanced     { background: rgba(129,140,248,.14); color: #818CF8; border: 1px solid rgba(129,140,248,.28); }
+        .badge-intermediate { background: rgba(251,191,36,.14);  color: #FBBF24; border: 1px solid rgba(251,191,36,.28); }
+        .badge-beginner     { background: rgba(148,163,184,.10); color: #94A3B8; border: 1px solid rgba(148,163,184,.22); }
+
+        /* ═══════════════════════════ INFO TILES ═══════════════════════════ */
+        .info-tile {
+            background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.06);
+            border-radius: 18px; padding: 16px 18px; transition: all .28s;
+        }
+        .info-tile:hover { border-color: var(--border-h); }
+
+        .strength-tile {
+            background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.05);
+            border-radius: 14px; padding: 14px 16px;
+            display: flex; align-items: flex-start; gap: 12px; transition: all .25s;
+        }
+        .strength-tile:hover { border-color: rgba(45,212,191,.22); background: rgba(45,212,191,.03); }
+
+        /* ═══════════════════════════ CERT CARD ═══════════════════════════ */
+        .cert-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 20px; overflow: hidden;
+            transition: all .35s ease; backdrop-filter: blur(12px);
+        }
+        .cert-card:hover {
+            border-color: var(--border-h);
+            transform: translateY(-7px) scale(1.01);
+            box-shadow: 0 20px 50px rgba(45,212,191,.12);
+        }
+        .cert-img-wrap {
+            position: relative; overflow: hidden; height: 176px;
+            background: linear-gradient(135deg, var(--teal-d), var(--violet-d));
+        }
+        .cert-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .55s; }
+        .cert-card:hover .cert-img-wrap img { transform: scale(1.06); }
+        .cert-placeholder {
+            width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+            background: linear-gradient(135deg, var(--violet-d), var(--teal-d));
         }
 
-        @media (min-width: 641px) and (max-width: 1024px) {
-            .contact-card {
-                width: 220px !important;
-                height: 220px !important;
-            }
+        /* ═══════════════════════════ PROJECT CARD ═══════════════════════════ */
+        .project-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 22px; overflow: hidden; transition: all .35s ease;
+        }
+        .project-card:hover {
+            border-color: var(--border-h);
+            transform: translateY(-9px);
+            box-shadow: 0 24px 60px rgba(45,212,191,.14);
+        }
+        .project-img-wrap { position:relative; overflow:hidden; height: 204px; }
+        .project-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .55s; }
+        .project-card:hover .project-img-wrap img { transform: scale(1.07); }
+        .project-overlay {
+            position:absolute; inset:0;
+            background: linear-gradient(to top, rgba(3,11,22,.92) 0%, transparent 55%);
+            opacity:0; transition:opacity .35s;
+        }
+        .project-card:hover .project-overlay { opacity:1; }
+
+        /* ═══════════════════════════ CONTACT CARD ═══════════════════════════ */
+        .contact-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 24px; transition: all .35s cubic-bezier(.34,1.56,.64,1);
+            position: relative; overflow: hidden;
+            display:flex; flex-direction:column; align-items:center;
+            justify-content:center; text-align:center; padding: 28px 20px;
+        }
+        .contact-card::before {
+            content:''; position:absolute; inset:0;
+            background: radial-gradient(circle at 50% 0%, var(--teal-d), transparent 70%);
+            opacity:0; transition:opacity .35s; pointer-events:none;
+        }
+        .contact-card:hover {
+            border-color: var(--border-h);
+            transform: translateY(-9px);
+            box-shadow: 0 20px 50px var(--teal-glow);
+        }
+        .contact-card:hover::before { opacity:1; }
+
+        /* ═══════════════════════════ BUTTONS ═══════════════════════════ */
+        .btn-primary {
+            display:inline-flex; align-items:center; gap:8px;
+            background: linear-gradient(135deg, var(--teal), var(--violet));
+            color: #041020; font-family:'DM Sans',sans-serif;
+            font-weight:700; font-size:.875rem;
+            padding:12px 28px; border-radius:999px;
+            transition:all .3s; border:none; cursor:pointer; text-decoration:none;
+        }
+        .btn-primary:hover {
+            transform:translateY(-2px);
+            box-shadow:0 14px 36px rgba(45,212,191,.38);
+            filter:brightness(1.08);
+        }
+        .btn-ghost {
+            display:inline-flex; align-items:center; gap:7px;
+            background: var(--teal-d); color:var(--teal);
+            font-family:'DM Sans',sans-serif; font-weight:600; font-size:.85rem;
+            padding:10px 22px; border-radius:999px;
+            border:1px solid rgba(45,212,191,.28);
+            transition:all .3s; cursor:pointer; text-decoration:none;
+        }
+        .btn-ghost:hover {
+            background:rgba(45,212,191,.18); border-color:var(--teal);
+            transform:translateY(-2px); box-shadow:0 8px 22px rgba(45,212,191,.2);
+        }
+        .btn-gray {
+            display:inline-flex; align-items:center; justify-content:center; gap:7px;
+            background:rgba(255,255,255,.05); color:var(--txt-2);
+            font-family:'DM Sans',sans-serif; font-weight:500; font-size:.82rem;
+            padding:9px 20px; border-radius:12px;
+            border:1px solid rgba(255,255,255,.07);
+            transition:all .28s; cursor:pointer; text-decoration:none; width:100%;
+        }
+        .btn-gray:hover {
+            background:rgba(255,255,255,.09); color:var(--txt);
+            border-color:rgba(255,255,255,.14);
         }
 
-        /* Lazy Loading Image Effects */
+        /* ═══════════════════════════ SCROLL ANIMATIONS ═══════════════════════════ */
+        .fade-in { opacity:0; transform:translateY(30px); transition:opacity .8s ease,transform .8s ease; }
+        .fade-in.visible { opacity:1; transform:translateY(0); }
+        .slide-in-left  { opacity:0; transform:translateX(-50px); transition:opacity .8s ease,transform .8s ease; }
+        .slide-in-left.visible { opacity:1; transform:translateX(0); }
+        .slide-in-right { opacity:0; transform:translateX(50px); transition:opacity .8s ease,transform .8s ease; }
+        .slide-in-right.visible { opacity:1; transform:translateX(0); }
+
+        /* ═══════════════════════════ TYPING ═══════════════════════════ */
+        .typing { border-right:3px solid var(--teal); animation:blink 1s infinite; }
+        @keyframes blink { 0%,49%{border-color:var(--teal);} 50%,100%{border-color:transparent;} }
+
+        /* ═══════════════════════════ FLOATING PROFILE ═══════════════════════════ */
+        .floating-profile { animation:floating 4s ease-in-out infinite; }
+        @keyframes floating { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);} }
+        .tilt-on-hover { transition:transform .3s ease; }
+        .tilt-on-hover:hover { transform:scale(1.05) rotate(3deg); }
+
+        /* ═══════════════════════════ LAZY IMAGE ═══════════════════════════ */
         .lazy-image {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-            filter: blur(10px);
+            opacity:0; transform:scale(.97);
+            transition:opacity .6s ease,transform .6s ease,filter .6s ease;
+            filter:blur(8px);
+        }
+        .lazy-image.loaded { opacity:1; transform:scale(1); filter:blur(0); }
+
+        /* ═══════════════════════════ GLOW (hero ring) ═══════════════════════════ */
+        .glow { box-shadow:0 0 30px var(--teal-glow),0 0 60px rgba(45,212,191,.09); }
+
+        /* ═══════════════════════════ SECTION DIVIDER ═══════════════════════════ */
+        .section-divider {
+            height:1px; max-width:420px; margin:0 auto;
+            background:linear-gradient(90deg,transparent,rgba(45,212,191,.22),transparent);
         }
 
-        .lazy-image.loaded {
-            opacity: 1;
-            transform: scale(1);
-            filter: blur(0);
+        /* ═══════════════════════════ PING DOT ═══════════════════════════ */
+        @keyframes ping { 75%,100%{transform:scale(2);opacity:0;} }
+        .ping { animation:ping 1.5s cubic-bezier(0,0,.2,1) infinite; }
+
+        /* ═══════════════════════════ SKILL MODAL ═══════════════════════════ */
+        .skill-modal-overlay { animation:fadeIn .3s ease-out; }
+        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
+        .skill-modal-card {
+            animation:modalSlideUp .4s cubic-bezier(.34,1.56,.64,1);
+            position:relative; overflow:hidden;
+            background:linear-gradient(135deg,rgba(5,14,30,.98),rgba(8,20,45,.95));
+            border:1px solid var(--border-h); border-radius:28px;
+        }
+        .skill-modal-card::before {
+            content:''; position:absolute; top:-50%; left:-50%;
+            width:200%; height:200%;
+            background:radial-gradient(circle,rgba(45,212,191,.07) 0%,transparent 55%);
+            animation:pulseGlow 3s ease-in-out infinite; pointer-events:none;
+        }
+        @keyframes modalSlideUp {
+            from{opacity:0;transform:translateY(50px) scale(.9);}
+            to{opacity:1;transform:translateY(0) scale(1);}
+        }
+        @keyframes pulseGlow { 0%,100%{opacity:.5;} 50%{opacity:1;} }
+
+        .skill-icon-container { animation:iconBounce .6s cubic-bezier(.68,-.55,.265,1.55) .2s backwards; transition:all .3s; }
+        .skill-icon-container:hover { transform:scale(1.1) rotate(5deg); }
+        @keyframes iconBounce {
+            0%{opacity:0;transform:scale(0) rotate(-180deg);}
+            70%{transform:scale(1.1) rotate(10deg);}
+            100%{opacity:1;transform:scale(1) rotate(0);}
+        }
+        .skill-icon-element { animation:iconFloat 2s ease-in-out infinite; }
+        @keyframes iconFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
+        .skill-name-text { animation:textSlideIn .5s ease-out .3s backwards; }
+        @keyframes textSlideIn { from{opacity:0;transform:translateX(-20px);} to{opacity:1;transform:translateX(0);} }
+        .skill-level-container { animation:fadeSlideUp .5s ease-out .4s backwards; }
+        @keyframes fadeSlideUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+        .skill-level-progress { animation:progressFill 1s ease-out .6s backwards; }
+        @keyframes progressFill { from{width:0%;} }
+        .skill-modal-overlay.closing { animation:fadeOut .3s ease-out forwards; }
+        .skill-modal-overlay.closing .skill-modal-card { animation:modalSlideDown .3s ease-out forwards; }
+        @keyframes fadeOut  { from{opacity:1;} to{opacity:0;} }
+        @keyframes modalSlideDown {
+            from{opacity:1;transform:translateY(0) scale(1);}
+            to{opacity:0;transform:translateY(28px) scale(.96);}
         }
 
-        .image-placeholder {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
+        /* ═══════════════════════════ SCROLLBAR ═══════════════════════════ */
+        ::-webkit-scrollbar { width:5px; }
+        ::-webkit-scrollbar-track { background:var(--bg); }
+        ::-webkit-scrollbar-thumb { background:rgba(45,212,191,.25); border-radius:3px; }
+        ::-webkit-scrollbar-thumb:hover { background:rgba(45,212,191,.45); }
 
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Scroll Animations */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .slide-in-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .slide-in-left.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .slide-in-right {
-            opacity: 0;
-            transform: translateX(50px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .slide-in-right.visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Typing Animation */
-        .typing {
-            border-right: 2px solid #2dd4bf;
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { border-color: #2dd4bf; }
-            51%, 100% { border-color: transparent; }
-        }
-
-        /* Enhanced Hover Effects */
-        .card-hover:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 50px rgba(45, 212, 191, 0.5);
-        }
-
-        .glow-hover:hover {
-            box-shadow: 0 0 30px rgba(45, 212, 191, 0.6), 0 0 60px rgba(45, 212, 191, 0.3);
-        }
-
-        /* Floating Animation for Profile Photo */
-        .floating-profile {
-          animation: floating 3s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
-        }
-
-        /* Tilt-on-Hover Effect */
-        .tilt-on-hover {
-          transition: transform 0.3s ease;
-        }
-
-        .tilt-on-hover:hover {
-          transform: scale(1.05) rotate(5deg);
+        /* ═══════════════════════════ NAV MOBILE UNDERLINE ═══════════════════════════ */
+        .nav-underline {
+            position:absolute; bottom:0; left:0; height:2px; width:0;
+            background:linear-gradient(90deg,var(--teal),var(--violet));
+            transition:width .3s; border-radius:999px;
         }
     </style>
 </head>
-<style>
-  body {
-    background: radial-gradient(circle at 20% 20%, #0f172a, #020617);
-    overflow-x: hidden;
-  }
-
-  /* Layer dasar gradient */
-  .bg-gradient-layer {
-    position: fixed;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(20,184,166,0.15), rgba(236,72,153,0.1));
-    z-index: -4;
-  }
-
-  /* Layer grid parallax */
-  .bg-grid {
-    position: fixed;
-    inset: 0;
-    background-image: linear-gradient(transparent 95%, rgba(236,72,153,0.05) 96%), 
-                      linear-gradient(90deg, transparent 95%, rgba(20,184,166,0.05) 96%);
-    background-size: 80px 80px;
-    z-index: -3;
-    transform: translateZ(0);
-  }
-
-  /* Layer particle (neon glow dots) */
-  .bg-particles {
-    position: fixed;
-    inset: 0;
-    z-index: -2;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: rgba(20,184,166,0.8);
-    box-shadow: 0 0 10px rgba(20,184,166,0.8);
-    animation: floaty 10s infinite ease-in-out alternate;
-  }
-
-  @keyframes floaty {
-    from { transform: translateY(0px); opacity: 1; }
-    to { transform: translateY(-50px); opacity: 0.5; }
-  }
-
-  /* Glow radial center */
-  .bg-glow {
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at center, rgba(236,72,153,0.2), transparent 70%);
-    z-index: -1;
-    transition: transform 0.3s ease;
-  }
-
-  /* Premium Skill Modal */
-.skill-modal-overlay { animation: fadeIn 0.3s ease-out; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.skill-modal-card {
-    animation: modalSlideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative; overflow: hidden;
-}
-.skill-modal-card::before {
-    content: ''; position: absolute; top: -50%; left: -50%;
-    width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(45, 212, 191, 0.1) 0%, transparent 70%);
-    animation: pulseGlow 3s ease-in-out infinite; pointer-events: none;
-}
-@keyframes modalSlideUp {
-    from { opacity: 0; transform: translateY(50px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes pulseGlow {
-    0%, 100% { transform: scale(1); opacity: 0.5; }
-    50% { transform: scale(1.2); opacity: 0.8; }
-}
-
-.skill-icon-container {
-    animation: iconBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s backwards;
-    transition: all 0.3s ease;
-}
-.skill-icon-container:hover {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 20px 40px rgba(45, 212, 191, 0.4);
-}
-@keyframes iconBounce {
-    0% { opacity: 0; transform: scale(0) rotate(-180deg); }
-    70% { transform: scale(1.1) rotate(10deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0); }
-}
-
-.skill-icon-element { animation: iconFloat 2s ease-in-out infinite; }
-@keyframes iconFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-}
-
-.skill-name-text { animation: textSlideIn 0.5s ease-out 0.3s backwards; }
-@keyframes textSlideIn {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-.skill-level-container {
-    animation: fadeSlideUp 0.5s ease-out 0.4s backwards;
-    transition: all 0.3s ease;
-}
-.skill-level-container:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(45, 212, 191, 0.15);
-}
-@keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.skill-level-progress {
-    animation: progressFill 1s ease-out 0.6s backwards;
-    transition: width 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-@keyframes progressFill { from { width: 0%; } }
-
-.skill-modal-overlay.closing { animation: fadeOut 0.3s ease-out forwards; }
-.skill-modal-overlay.closing .skill-modal-card { animation: modalSlideDown 0.3s ease-out forwards; }
-@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
-@keyframes modalSlideDown {
-    from { opacity: 1; transform: translateY(0) scale(1); }
-    to { opacity: 0; transform: translateY(30px) scale(0.95); }
-}
-
-.card-hover::before {
-    content: ''; position: absolute; top: 50%; left: 50%;
-    width: 0; height: 0; border-radius: 50%;
-    background: radial-gradient(circle, rgba(45, 212, 191, 0.2) 0%, transparent 70%);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-    pointer-events: none; z-index: 0;
-}
-.card-hover:hover::before { width: 300%; height: 300%; }
-.card-hover > * { position: relative; z-index: 1; }
-
-.contact-card::after {
-    content: ''; position: absolute; inset: 0; border-radius: inherit;
-    background: linear-gradient(135deg, transparent 0%, rgba(45, 212, 191, 0.1) 50%, transparent 100%);
-    opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
-}
-.contact-card:hover::after { opacity: 1; }
-</style>
 
 <body class="antialiased">
-    
-  <div class="bg-gradient-layer"></div>
-  <div class="bg-grid"></div>
-  <div class="bg-particles" id="particles"></div>
-  <div class="bg-glow" id="glow"></div>
-  
 
+    <!-- BG layers -->
+    <div class="bg-gradient-layer"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-particles" id="particles"></div>
+    <div class="bg-glow" id="glow"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar fixed w-full top-0 z-50 border-b border-teal-500/20">
-        <div class="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+    <!-- ════════════════════════════════════════════════════════
+         NAVBAR
+    ════════════════════════════════════════════════════════ -->
+    <nav class="navbar fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 py-3.5">
             <div class="flex justify-between items-center">
-                <h1 class="text-xl sm:text-2xl font-bold gradient-text">Portfolio</h1>
-                <div class="hidden md:flex space-x-6 lg:space-x-8">
-                    <a href="#home" class="hover:text-teal-400 transition text-sm lg:text-base">Home</a>
-                    <a href="#skills" class="hover:text-teal-400 transition text-sm lg:text-base">Skills</a>
-                    <a href="#certificates" class="hover:text-teal-400 transition text-sm lg:text-base">Certificates</a>
-                    <a href="#projects" class="hover:text-teal-400 transition text-sm lg:text-base">Projects</a>
-                    <a href="#contact" class="hover:text-teal-400 transition text-sm lg:text-base">Contact</a>
+
+                <a href="#home" class="font-display font-extrabold text-xl tracking-tight gradient-text">&lt;Nandra /&gt;</a>
+
+                <div class="hidden md:flex items-center gap-7">
+                    <a href="#home"         class="nav-link-item">Home</a>
+                    <a href="#skills"       class="nav-link-item">Skills</a>
+                    <a href="#certificates" class="nav-link-item">Certificates</a>
+                    <a href="#projects"     class="nav-link-item">Projects</a>
+                    <a href="#contact"      class="nav-link-item">Contact</a>
                 </div>
-                <button id="mobileMenuBtn" class="md:hidden text-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-400 rounded-lg p-2" aria-label="Toggle mobile menu" aria-expanded="false">
-                    <svg id="hamburgerIcon" class="w-6 h-6 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="3" y1="12" x2="21" y2="12"></line>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <line x1="3" y1="18" x2="21" y2="18"></line>
-                    </svg>
-                </button>
+
+                <div class="flex items-center gap-3">
+                    <a href="#contact" class="hidden sm:inline-flex btn-primary text-sm px-5 py-2.5">
+                        <i class="fas fa-paper-plane text-xs"></i> Hire Me
+                    </a>
+                    <button id="mobileMenuBtn"
+                        class="md:hidden text-teal-400 p-2 rounded-xl border border-teal-500/20 bg-teal-500/5"
+                        aria-label="Toggle mobile menu" aria-expanded="false">
+                        <svg id="hamburgerIcon" class="w-5 h-5 transition-transform duration-300"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="3" y1="12" x2="21" y2="12"/>
+                            <line x1="3" y1="6"  x2="21" y2="6"/>
+                            <line x1="3" y1="18" x2="21" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- Premium Mobile Navigation Overlay -->
+        <!-- Mobile overlay -->
         <div id="mobileNavOverlay" class="fixed inset-0 z-40 hidden md:hidden">
-            <!-- Backdrop -->
-            <div id="mobileNavBackdrop" class="absolute inset-0 bg-black/60 backdrop-blur-md"></div>
-
-            <!-- Menu Container -->
+            <div id="mobileNavBackdrop" class="absolute inset-0 bg-black/72 backdrop-blur-xl"></div>
             <div id="mobileNavContainer" class="relative flex items-center justify-center h-full">
-                <nav id="mobileNavMenu" class="bg-gray-900/80 backdrop-blur-xl border border-teal-500/20 rounded-3xl p-8 mx-4 max-w-sm w-full shadow-2xl shadow-teal-500/10" role="navigation" aria-label="Mobile navigation">
-                    <div class="flex flex-col space-y-6">
-                        <a href="#home" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="0">
-                            <span class="relative z-10">Home</span>
-                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
-                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        </a>
-                        <a href="#skills" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="1">
-                            <span class="relative z-10">Skills</span>
-                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
-                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        </a>
-                        <a href="#certificates" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="2">
-                            <span class="relative z-10">Certificates</span>
-                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
-                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        </a>
-                        <a href="#projects" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="3">
-                            <span class="relative z-10">Projects</span>
-                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
-                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        </a>
-                        <a href="#contact" class="nav-link group relative text-white text-xl font-medium transition-all duration-300 hover:text-teal-400" data-delay="4">
-                            <span class="relative z-10">Contact</span>
-                            <div class="nav-underline absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 transition-all duration-300 group-hover:w-full"></div>
-                            <div class="nav-glow absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <nav id="mobileNavMenu"
+                    class="bg-[#07111F]/95 backdrop-blur-2xl border border-teal-500/20 rounded-3xl p-8 mx-5 max-w-sm w-full shadow-2xl"
+                    role="navigation" aria-label="Mobile navigation">
+                    <p class="font-display text-[10px] font-bold tracking-[.18em] uppercase text-[#2DD4BF]/50 mb-5">Navigation</p>
+                    <div class="flex flex-col space-y-5">
+                        <a href="#home"         class="nav-link group relative text-white text-xl font-semibold font-display transition-all hover:text-teal-400" data-delay="0"><span>Home</span><div class="nav-underline"></div></a>
+                        <a href="#skills"       class="nav-link group relative text-white text-xl font-semibold font-display transition-all hover:text-teal-400" data-delay="1"><span>Skills</span><div class="nav-underline"></div></a>
+                        <a href="#certificates" class="nav-link group relative text-white text-xl font-semibold font-display transition-all hover:text-teal-400" data-delay="2"><span>Certificates</span><div class="nav-underline"></div></a>
+                        <a href="#projects"     class="nav-link group relative text-white text-xl font-semibold font-display transition-all hover:text-teal-400" data-delay="3"><span>Projects</span><div class="nav-underline"></div></a>
+                        <a href="#contact"      class="nav-link group relative text-white text-xl font-semibold font-display transition-all hover:text-teal-400" data-delay="4"><span>Contact</span><div class="nav-underline"></div></a>
+                    </div>
+                    <div class="mt-7 pt-6 border-t border-white/[.05]">
+                        <a href="#contact" class="btn-primary w-full justify-center">
+                            <i class="fas fa-paper-plane text-xs"></i> Let's Work Together
                         </a>
                     </div>
                 </nav>
@@ -423,615 +460,763 @@
         </div>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="min-h-screen flex items-center pt-20 sm:pt-24 pb-10 sm:pb-0 fade-in">
-        <div class="container mx-auto px-4 sm:px-6">
-            <div class="max-w-4xl mx-auto text-center">
-                <div class="mb-6 sm:mb-8">
-                        <div class="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full bg-gradient-to-br from-teal-400 to-blue-500 p-1 glow floating-profile tilt-on-hover">
-                        <div class="w-full h-full rounded-full overflow-hidden">
-                            <img src="uploads/me.jpg" alt="Foto Profil Nandra" class="w-full h-full object-cover" loading="lazy">
+    <!-- ════════════════════════════════════════════════════════
+         HERO / HOME
+    ════════════════════════════════════════════════════════ -->
+    <section id="home" class="min-h-screen flex items-center pt-24 pb-16 fade-in">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 w-full">
+
+            <!-- Split layout -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-14">
+
+                <!-- Photo -->
+                <div class="flex-shrink-0">
+                    <div class="relative">
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-teal-400 to-violet-500 opacity-25 blur-3xl scale-110 pointer-events-none"></div>
+                        <div class="relative w-40 h-40 sm:w-52 sm:h-52 rounded-full bg-gradient-to-br from-teal-400 to-violet-500 p-[3px] glow floating-profile tilt-on-hover">
+                            <div class="w-full h-full rounded-full overflow-hidden bg-[#071120]">
+                                <img src="uploads/me.jpg" alt="Foto Profil Nandra" class="w-full h-full object-cover" loading="lazy">
+                            </div>
+                        </div>
+                        <!-- Available pill -->
+                        <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-[#071120] border border-green-500/30 rounded-full px-4 py-2 text-xs font-semibold whitespace-nowrap shadow-lg shadow-green-500/10">
+                            <span class="relative flex h-2 w-2">
+                                <span class="ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-70"></span>
+                                <span class="relative inline-flex h-2 w-2 rounded-full bg-green-400"></span>
+                            </span>
+                            <span class="text-green-400">Available for Work</span>
                         </div>
                     </div>
                 </div>
 
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 px-4">
-                    Halo, Saya <span class="gradient-text typing">Nandra</span>
-                </h1>
-                <p class="text-base sm:text-lg md:text-xl text-gray-400 mb-2 px-4">Developer & Creative Enthusiast</p>
-                <div class="flex flex-wrap justify-center gap-2 mb-4 sm:mb-6 px-4">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-teal-500/20 text-teal-300 border border-teal-500/30">
-                        <i class="fas fa-code mr-1.5"></i>Frontend Developer
-                    </span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                        <i class="fas fa-gamepad mr-1.5"></i>Game Developer
-                    </span>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs sm:text-sm bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                        <i class="fas fa-laptop-code mr-1.5"></i>Freelancer
-                    </span>
+                <!-- Text -->
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="inline-flex section-label mb-4">
+                        <i class="fas fa-map-marker-alt text-xs"></i> Bekasi, Indonesia
+                    </div>
+                    <h1 class="section-heading text-4xl sm:text-5xl lg:text-[3.6rem] xl:text-7xl mb-4 leading-[1.08]">
+                        Halo, Saya<br>
+                        <span class="gradient-text typing">Nandra</span>
+                    </h1>
+                    <p class="text-base sm:text-lg text-[#94A3B8] mb-5 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Developer &amp; Creative Enthusiast — building beautiful,<br class="hidden sm:block"> functional digital experiences that matter.
+                    </p>
+
+                    <!-- Role chips -->
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-2 mb-7">
+                        <span class="skill-badge badge-expert"><i class="fas fa-code text-xs"></i> Frontend Dev</span>
+                        <span class="skill-badge badge-advanced"><i class="fas fa-gamepad text-xs"></i> Game Dev</span>
+                        <span class="skill-badge badge-intermediate"><i class="fas fa-laptop-code text-xs"></i> Freelancer</span>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3">
+                        <a href="#contact" class="btn-primary"><i class="fas fa-paper-plane text-xs"></i> Let's Work Together</a>
+                        <a href="#projects" class="btn-ghost"><i class="fas fa-folder-open text-xs"></i> View Projects</a>
+                    </div>
                 </div>
+            </div>
 
-                <!-- About Me Card - Enhanced -->
-                <div class="max-w-4xl mx-auto bg-gradient-to-br from-gray-900/80 to-gray-800/50 rounded-3xl p-1 border border-teal-500/30 mx-4 sm:mx-auto shadow-2xl backdrop-blur-sm">
-                    <div class="bg-gray-900/90 rounded-3xl p-6 sm:p-8">
-                        <!-- Header -->
-                        <div class="flex items-center justify-between mb-6">
-                            <h2 class="text-2xl sm:text-3xl font-bold text-teal-400 flex items-center">
-                                <i class="fas fa-user-circle mr-3 text-teal-500"></i>
-                                About Me
-                            </h2>
-                            <div class="hidden sm:flex items-center gap-2">
-                                <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                                <span class="text-xs text-green-400 font-medium">Available for Work</span>
-                            </div>
-                        </div>
+            <div class="section-divider mb-12"></div>
 
-                        <!-- Info Grid -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                            <div class="bg-gradient-to-br from-teal-500/10 to-teal-500/5 rounded-xl p-4 border border-teal-500/20 hover:border-teal-500/40 transition-all">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-id-badge text-teal-400 mr-2"></i>
-                                    <span class="text-xs text-gray-400 font-medium">Full Name</span>
-                                </div>
-                                <p class="text-sm sm:text-base font-semibold text-white">Fachri Nandra Syahputra</p>
-                            </div>
-                            
-                           <a 
-  href="https://www.google.com/maps/place/6%C2%B020'42.0%22S+106%C2%B055'48.1%22E/@-6.3450508,106.9300285,20.25z/data=!4m4!3m3!8m2!3d-6.344995!4d106.930013?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoASAFQAw%3D%3D"
-  target="_blank"
-  class="block"
->
-  <div class="bg-gradient-to-br from-blue-500/10 to-blue-500/5 rounded-xl p-4 border border-blue-500/20 hover:border-blue-500/40 hover:bg-blue-500/10 transition-all cursor-pointer">
-    
-    <div class="flex items-center mb-2">
-      <i class="fas fa-map-marker-alt text-blue-400 mr-2"></i>
-      <span class="text-xs text-gray-400 font-medium">Location</span>
-    </div>
+            <!-- ── About Card ── -->
+            <div class="card p-1">
+                <div class="card-inner bg-[#071120]/55 rounded-[20px] p-6 sm:p-8">
 
-    <p class="text-sm sm:text-base font-semibold text-white">
-      Bekasi, Indonesia
-    </p>
-
-    <span class="text-xs text-blue-400 mt-1 inline-block">
-      Get directions →
-    </span>
-
-  </div>
-</a>
-
-                            
-                            <div class="bg-gradient-to-br from-purple-500/10 to-purple-500/5 rounded-xl p-4 border border-purple-500/20 hover:border-purple-500/40 transition-all">
-                                <div class="flex items-center mb-2">
-                                    <i class="fas fa-briefcase text-purple-400 mr-2"></i>
-                                    <span class="text-xs text-gray-400 font-medium">Status</span>
-                                </div>
-                                <p class="text-sm sm:text-base font-semibold text-white">Open to Opportunities</p>
-                            </div>
-                        </div>
-
-                        <!-- Professional Summary -->
-                        <div class="bg-gradient-to-r from-gray-800/50 to-gray-800/30 rounded-xl p-5 sm:p-6 border border-gray-700/50 mb-5">
-                            <h3 class="text-lg sm:text-xl font-semibold text-teal-300 mb-3 flex items-center">
-                                <i class="fas fa-star text-yellow-400 mr-2"></i>
-                                Professional Summary
-                            </h3>
-                            <p class="text-sm sm:text-base text-gray-300 leading-relaxed text-left">
-                                Passionate <strong class="text-white">16-year-old developer</strong> from <strong class="text-teal-400">Prestasi Prima School</strong> with hands-on experience in <strong class="text-white">full-stack web development</strong> and <strong class="text-white">game design</strong>. Currently running a successful <strong class="text-teal-400">freelance business</strong> in website development while contributing as a developer on Roblox map projects.
-                            </p>
-                        </div>
-
-                        <!-- Key Strengths -->
-                        <div class="mb-5">
-                            <h3 class="text-lg sm:text-xl font-semibold text-teal-300 mb-4 flex items-center">
-                                <i class="fas fa-bolt text-yellow-400 mr-2"></i>
-                                Core Strengths
-                            </h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div class="flex items-start space-x-3 bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 hover:border-teal-500/30 transition-all">
-                                    <i class="fas fa-check-circle text-teal-400 mt-1"></i>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Responsive UI/UX Design</p>
-                                        <p class="text-xs text-gray-400">Crafting elegant, user-friendly interfaces</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-3 bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 hover:border-teal-500/30 transition-all">
-                                    <i class="fas fa-check-circle text-teal-400 mt-1"></i>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">  Frontend Development</p>
-                                        <p class="text-xs text-gray-400">Frontend integration</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-3 bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 hover:border-teal-500/30 transition-all">
-                                    <i class="fas fa-check-circle text-teal-400 mt-1"></i>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Game Development</p>
-                                        <p class="text-xs text-gray-400">Interactive experiences & mechanics</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-start space-x-3 bg-gray-800/30 rounded-lg p-3 border border-gray-700/30 hover:border-teal-500/30 transition-all">
-                                    <i class="fas fa-check-circle text-teal-400 mt-1"></i>
-                                    <div>
-                                        <p class="text-sm font-semibold text-white">Fast Learner & Adaptable</p>
-                                        <p class="text-xs text-gray-400">Quick to master new technologies</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Career Goals -->
-                        <div class="bg-gradient-to-r from-teal-500/10 via-blue-500/10 to-purple-500/10 rounded-xl p-5 border border-teal-500/30">
-                            <h3 class="text-lg sm:text-xl font-semibold text-teal-300 mb-3 flex items-center">
-                                <i class="fas fa-bullseye text-teal-400 mr-2"></i>
-                                Career Objective
-                            </h3>
-                            <p class="text-sm sm:text-base text-gray-300 leading-relaxed text-left mb-3">
-                                Actively seeking opportunities in the tech industry, particularly in <strong class="text-teal-400">web development</strong>, <strong class="text-blue-400">game design</strong>, and <strong class="text-purple-400">educational platforms</strong>. I believe that <strong class="text-white">age doesn't limit impact</strong>, and I'm ready to learn, collaborate, and contribute to meaningful projects that make a difference.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="text-xs px-3 py-1 bg-teal-500/20 text-teal-300 rounded-full border border-teal-500/30">Internship</span>
-                                <span class="text-xs px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full border border-blue-500/30">Remote Work</span>
-                                <span class="text-xs px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full border border-purple-500/30">Project-Based</span>
-                                <span class="text-xs px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full border border-pink-500/30">Collaboration</span>
-                            </div>
-                        </div>
-
-                        <!-- CTA Button -->
-                        <div class="mt-6 text-center">
-                            <a href="#contact" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-500 text-white font-semibold rounded-xl hover:from-teal-600 hover:to-blue-600 transition-all shadow-lg hover:shadow-teal-500/50 text-sm sm:text-base">
-                                <i class="fas fa-paper-plane mr-2"></i>
-                                Let's Work Together
-                            </a>
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-7">
+                        <div>
+                            <p class="section-label"><i class="fas fa-user-circle text-xs"></i> About Me</p>
+                            <h2 class="section-heading text-2xl sm:text-3xl">Professional Profile</h2>
                         </div>
                     </div>
+
+                    <!-- Info tiles -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-7">
+                        <div class="info-tile">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fas fa-id-badge text-teal-400 text-sm"></i>
+                                <span class="text-[10px] text-[#3D5570] font-bold uppercase tracking-wider">Full Name</span>
+                            </div>
+                            <p class="font-semibold text-sm text-white">Fachri Nandra Syahputra</p>
+                        </div>
+                        <a href="https://www.google.com/maps/place/6%C2%B020'42.0%22S+106%C2%B055'48.1%22E/@-6.3450508,106.9300285,20.25z"
+                            target="_blank" class="info-tile cursor-pointer block">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fas fa-map-marker-alt text-violet-400 text-sm"></i>
+                                <span class="text-[10px] text-[#3D5570] font-bold uppercase tracking-wider">Location</span>
+                            </div>
+                            <p class="font-semibold text-sm text-white">Bekasi, Indonesia</p>
+                            <p class="text-[11px] text-violet-400 mt-1">Get directions →</p>
+                        </a>
+                        <div class="info-tile">
+                            <div class="flex items-center gap-2 mb-2">
+                                <i class="fas fa-briefcase text-amber-400 text-sm"></i>
+                                <span class="text-[10px] text-[#3D5570] font-bold uppercase tracking-wider">Status</span>
+                            </div>
+                            <p class="font-semibold text-sm text-white">Open to Opportunities</p>
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="bg-white/[.02] border border-white/[.04] rounded-2xl p-5 sm:p-6 mb-6">
+                        <h3 class="font-display font-bold text-sm text-white mb-3 flex items-center gap-2">
+                            <i class="fas fa-star text-amber-400 text-xs"></i> Professional Summary
+                        </h3>
+                        <p class="text-[#94A3B8] text-sm leading-relaxed text-left">
+                            Passionate <strong class="text-white">16-year-old developer</strong> from
+                            <strong class="text-teal-400">Prestasi Prima School</strong> with hands-on experience in
+                            <strong class="text-white">full-stack web development</strong> and
+                            <strong class="text-white">game design</strong>. Currently running a successful
+                            <strong class="text-teal-400">freelance business</strong> in website development while
+                            contributing as a developer on Roblox map projects.
+                        </p>
+                    </div>
+
+                    <!-- Strengths -->
+                    <div class="mb-6">
+                        <h3 class="font-display font-bold text-sm text-white mb-4 flex items-center gap-2">
+                            <i class="fas fa-bolt text-amber-400 text-xs"></i> Core Strengths
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div class="strength-tile">
+                                <i class="fas fa-check-circle text-teal-400 mt-0.5 flex-shrink-0 text-sm"></i>
+                                <div><p class="text-sm font-semibold text-white">Responsive UI/UX Design</p><p class="text-xs text-[#3D5570]">Crafting elegant, user-friendly interfaces</p></div>
+                            </div>
+                            <div class="strength-tile">
+                                <i class="fas fa-check-circle text-teal-400 mt-0.5 flex-shrink-0 text-sm"></i>
+                                <div><p class="text-sm font-semibold text-white">Frontend Development</p><p class="text-xs text-[#3D5570]">Clean, performant frontend integration</p></div>
+                            </div>
+                            <div class="strength-tile">
+                                <i class="fas fa-check-circle text-teal-400 mt-0.5 flex-shrink-0 text-sm"></i>
+                                <div><p class="text-sm font-semibold text-white">Game Development</p><p class="text-xs text-[#3D5570]">Interactive experiences & mechanics</p></div>
+                            </div>
+                            <div class="strength-tile">
+                                <i class="fas fa-check-circle text-teal-400 mt-0.5 flex-shrink-0 text-sm"></i>
+                                <div><p class="text-sm font-semibold text-white">Fast Learner & Adaptable</p><p class="text-xs text-[#3D5570]">Quick to master new technologies</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Career Objective -->
+                    <div class="bg-gradient-to-br from-teal-500/[.07] via-violet-500/[.04] to-amber-500/[.04] border border-teal-500/18 rounded-2xl p-5">
+                        <h3 class="font-display font-bold text-sm text-white mb-3 flex items-center gap-2">
+                            <i class="fas fa-bullseye text-teal-400 text-xs"></i> Career Objective
+                        </h3>
+                        <p class="text-[#94A3B8] text-sm leading-relaxed text-left mb-4">
+                            Actively seeking opportunities in <strong class="text-teal-400">web development</strong>,
+                            <strong class="text-violet-400">game design</strong>, and
+                            <strong class="text-amber-400">educational platforms</strong>.
+                            I believe <strong class="text-white">age doesn't limit impact</strong> — ready to learn,
+                            collaborate, and contribute to meaningful projects.
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-badge badge-expert">Internship</span>
+                            <span class="skill-badge badge-advanced">Remote Work</span>
+                            <span class="skill-badge badge-intermediate">Project-Based</span>
+                            <span class="skill-badge badge-beginner">Collaboration</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-12 sm:py-16 md:py-20 slide-in-left">
-        <div class="container mx-auto px-4 sm:px-6">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">
-                <span class="gradient-text">Skills & Expertise</span>
-            </h2>
-            <p class="text-center text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">Teknologi yang saya kuasai</p>
+    <!-- ════════════════════════════════════════════════════════
+         SKILLS
+    ════════════════════════════════════════════════════════ -->
+    <section id="skills" class="py-16 sm:py-20 md:py-24 slide-in-left">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
-                <!-- JavaScript -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="JavaScript" data-description="Dynamic programming language for web development, enabling interactive and responsive user interfaces with modern features like ES6+ syntax, asynchronous programming, and framework integration." data-level="Intermediate">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-yellow-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fab fa-js-square text-2xl sm:text-3xl text-yellow-400"></i>
+            <div class="text-center mb-14">
+                <p class="section-label mx-auto"><i class="fas fa-layer-group text-xs"></i> Skills & Expertise</p>
+                <h2 class="section-heading text-3xl sm:text-4xl lg:text-5xl">
+                    Teknologi yang Saya <span class="gradient-text">Kuasai</span>
+                </h2>
+                <p class="text-[#3D5570] text-sm mt-3">Klik kartu untuk detail lebih lanjut</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
+
+                <!-- ── JS ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="JavaScript" data-level="Intermediate"
+                    data-description="Dynamic programming language for web development, enabling interactive and responsive user interfaces with modern features like ES6+ syntax, asynchronous programming, and framework integration.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-yellow-400/12 flex items-center justify-center border border-yellow-400/18">
+                                    <i class="fab fa-js-square text-2xl text-yellow-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">JavaScript</h3>
+                                    <p class="text-xs text-[#3D5570]">Frontend & Backend</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">JavaScript</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Frontend & Backend</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="75" style="background:linear-gradient(90deg,#FBBF24,#F97316); box-shadow:0 0 10px rgba(251,191,36,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">ES6+, React, Node.js, async/await</p><p class="text-xs font-bold text-yellow-400">75%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full transition-all duration-1000 ease-out" data-progress="75"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 75%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">ES6+, React, Node.js, async/await</p>
                 </div>
 
-                <!-- HTML -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="HTML5" data-description="Modern markup language for structuring web content with semantic elements, accessibility features, and SEO optimization for better search engine visibility." data-level="Expert">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-orange-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fab fa-html5 text-2xl sm:text-3xl text-orange-400"></i>
+                <!-- ── HTML5 ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="HTML5" data-level="Expert"
+                    data-description="Modern markup language for structuring web content with semantic elements, accessibility features, and SEO optimization for better search engine visibility.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-orange-500/12 flex items-center justify-center border border-orange-500/18">
+                                    <i class="fab fa-html5 text-2xl text-orange-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">HTML5</h3>
+                                    <p class="text-xs text-[#3D5570]">Markup & Structure</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-expert">Expert</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">HTML5</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Markup & Structure</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="90" style="background:linear-gradient(90deg,#FB923C,#F59E0B); box-shadow:0 0 10px rgba(251,146,60,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Semantic HTML, SEO optimization</p><p class="text-xs font-bold text-orange-400">90%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-orange-400 to-yellow-500 rounded-full transition-all duration-1000 ease-out" data-progress="90"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Expert - 90%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Semantic HTML, SEO optimization</p>
                 </div>
 
-                <!-- PHP -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="PHP" data-description="Versatile server-side scripting language for web development, enabling dynamic content generation, database interactions, and robust backend logic with extensive library support and framework integration." data-level="Intermediate">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fab fa-php text-2xl sm:text-3xl text-purple-400"></i>
+                <!-- ── PHP ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="PHP" data-level="Intermediate"
+                    data-description="Versatile server-side scripting language for web development, enabling dynamic content generation, database interactions, and robust backend logic.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-violet-500/12 flex items-center justify-center border border-violet-500/18">
+                                    <i class="fab fa-php text-2xl text-violet-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">PHP</h3>
+                                    <p class="text-xs text-[#3D5570]">Server-side Development</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">PHP</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Server-side Development</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="60" style="background:linear-gradient(90deg,#A78BFA,#EC4899); box-shadow:0 0 10px rgba(167,139,250,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">PDO, MySQL, REST API</p><p class="text-xs font-bold text-violet-400">60%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-purple-400 to-pink-500 rounded-full transition-all duration-1000 ease-out" data-progress="60"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 60%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">PDO, MySQL, REST API</p>
                 </div>
 
-                <!-- VS Code -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="VS Code" data-description="Advanced code editor with extensive customization, powerful debugging tools, Git integration, and a vast extension ecosystem for enhanced productivity across multiple programming languages." data-level="Advanced">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fas fa-code text-2xl sm:text-3xl text-blue-400"></i>
+                <!-- ── VS Code ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="VS Code" data-level="Advanced"
+                    data-description="Advanced code editor with extensive customization, powerful debugging tools, Git integration, and a vast extension ecosystem for enhanced productivity.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-blue-500/12 flex items-center justify-center border border-blue-500/18">
+                                    <i class="fas fa-code text-2xl text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">VS Code</h3>
+                                    <p class="text-xs text-[#3D5570]">Code Editor Mastery</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-advanced">Advanced</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">VS Code</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Code Editor Mastery</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="88" style="background:linear-gradient(90deg,#60A5FA,#22D3EE); box-shadow:0 0 10px rgba(96,165,250,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Extensions, debugging, Git integration</p><p class="text-xs font-bold text-blue-400">88%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full transition-all duration-1000 ease-out" data-progress="88"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Advanced - 88%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Extensions, debugging, Git integration</p>
                 </div>
 
-                <!-- Roblox Studio -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="Roblox Studio" data-description="Comprehensive game development platform for creating immersive Roblox experiences, featuring Lua scripting, advanced game mechanics, intuitive UI design tools, and collaborative development features." data-level="Advanced">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-red-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fas fa-gamepad text-2xl sm:text-3xl text-red-400"></i>
+                <!-- ── Roblox Studio ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="Roblox Studio" data-level="Advanced"
+                    data-description="Comprehensive game development platform for creating immersive Roblox experiences, featuring Lua scripting, advanced game mechanics, and intuitive UI design tools.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-red-500/12 flex items-center justify-center border border-red-500/18">
+                                    <i class="fas fa-gamepad text-2xl text-red-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">Roblox Studio</h3>
+                                    <p class="text-xs text-[#3D5570]">Game Development</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-advanced">Advanced</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">Roblox Studio</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Game Development</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="90" style="background:linear-gradient(90deg,#F87171,#FB923C); box-shadow:0 0 10px rgba(248,113,113,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Lua scripting, game mechanics, UI design</p><p class="text-xs font-bold text-red-400">90%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-red-400 to-pink-500 rounded-full transition-all duration-1000 ease-out" data-progress="90"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Advanced - 90%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Lua scripting, game mechanics, UI design</p>
                 </div>
 
-                <!-- Tailwind CSS -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="Tailwind CSS" data-description="Utility-first CSS framework that enables rapid UI development with responsive design, custom configurations, dark mode support, and a highly customizable design system." data-level="Advanced">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-teal-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fas fa-palette text-2xl sm:text-3xl text-teal-400"></i>
+                <!-- ── Tailwind ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="Tailwind CSS" data-level="Advanced"
+                    data-description="Utility-first CSS framework that enables rapid UI development with responsive design, custom configurations, dark mode support, and a highly customizable design system.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-teal-500/12 flex items-center justify-center border border-teal-500/18">
+                                    <i class="fas fa-palette text-2xl text-teal-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">Tailwind CSS</h3>
+                                    <p class="text-xs text-[#3D5570]">Utility-first Styling</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-advanced">Advanced</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">Tailwind CSS</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Utility-first Styling</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="80" style="background:linear-gradient(90deg,#2DD4BF,#818CF8); box-shadow:0 0 10px rgba(45,212,191,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Responsive design, custom configs, dark mode</p><p class="text-xs font-bold text-teal-400">80%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-teal-400 to-blue-500 rounded-full transition-all duration-1000 ease-out" data-progress="80"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Advanced - 80%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Responsive design, custom configs, dark mode</p>
                 </div>
 
-                <!-- CSS -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="CSS" data-description="Fundamental styling language for creating responsive, animated, and visually appealing web interfaces using modern CSS techniques, including Flexbox, Grid, and CSS animations." data-level="Advanced">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-blue-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fab fa-css3-alt text-2xl sm:text-3xl text-blue-400"></i>
+                <!-- ── CSS ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="CSS" data-level="Advanced"
+                    data-description="Fundamental styling language for creating responsive, animated, and visually appealing web interfaces using modern CSS techniques including Flexbox, Grid, and animations.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-blue-500/12 flex items-center justify-center border border-blue-500/18">
+                                    <i class="fab fa-css3-alt text-2xl text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">CSS3</h3>
+                                    <p class="text-xs text-[#3D5570]">Styling & Animations</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-advanced">Advanced</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">CSS</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Styling & Animations</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="90" style="background:linear-gradient(90deg,#60A5FA,#22D3EE); box-shadow:0 0 10px rgba(96,165,250,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Responsive design, animations, frameworks</p><p class="text-xs font-bold text-blue-400">90%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full transition-all duration-1000 ease-out" data-progress="90"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Advanced - 90%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Responsive design, animations, frameworks</p>
                 </div>
 
-                <!-- UI/UX Design -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="UI/UX Design" data-description="Designing intuitive and user-friendly interfaces with a strong focus on user experience, wireframing, prototyping, and user research to create engaging digital experiences." data-level="Intermediate">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-purple-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fas fa-pencil-ruler text-2xl sm:text-3xl text-purple-400"></i>
+                <!-- ── UI/UX ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="UI/UX Design" data-level="Intermediate"
+                    data-description="Designing intuitive and user-friendly interfaces with a strong focus on user experience, wireframing, prototyping, and user research to create engaging digital experiences.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-purple-500/12 flex items-center justify-center border border-purple-500/18">
+                                    <i class="fas fa-pencil-ruler text-2xl text-purple-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">UI/UX Design</h3>
+                                    <p class="text-xs text-[#3D5570]">Interface Design</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">UI/UX Design</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Interface Design</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="70" style="background:linear-gradient(90deg,#C084FC,#F472B6); box-shadow:0 0 10px rgba(192,132,252,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Wireframing, prototyping, user research</p><p class="text-xs font-bold text-purple-400">70%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-purple-400 to-pink-500 rounded-full transition-all duration-1000 ease-out" data-progress="70"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 70%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Wireframing, prototyping, user research</p>
                 </div>
 
-                <!-- Figma -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="Figma" data-description="Collaborative design and prototyping tool for creating interfaces, prototypes, and design systems with real-time collaboration, version control, and extensive plugin ecosystem." data-level="Intermediate">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-pink-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fab fa-figma text-2xl sm:text-3xl text-pink-400"></i>
+                <!-- ── Figma ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="Figma" data-level="Intermediate"
+                    data-description="Collaborative design and prototyping tool for creating interfaces, prototypes, and design systems with real-time collaboration, version control, and extensive plugin ecosystem.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-pink-500/12 flex items-center justify-center border border-pink-500/18">
+                                    <i class="fab fa-figma text-2xl text-pink-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">Figma</h3>
+                                    <p class="text-xs text-[#3D5570]">Design Tool</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">Figma</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Design Tool</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="70" style="background:linear-gradient(90deg,#F472B6,#FB7185); box-shadow:0 0 10px rgba(244,114,182,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Prototyping, collaboration, design systems</p><p class="text-xs font-bold text-pink-400">70%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-pink-400 to-red-500 rounded-full transition-all duration-1000 ease-out" data-progress="70"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 70%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Prototyping, collaboration, design systems</p>
                 </div>
 
-                <!-- Laravel -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="Laravel" data-description="Elegant PHP framework for building robust web applications with MVC architecture, expressive routing, powerful ORM, and comprehensive database integration." data-level="Beginner">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-red-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fab fa-laravel text-2xl sm:text-3xl text-red-400"></i>
+                <!-- ── Laravel ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="Laravel" data-level="Beginner"
+                    data-description="Elegant PHP framework for building robust web applications with MVC architecture, expressive routing, powerful ORM, and comprehensive database integration.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-red-500/12 flex items-center justify-center border border-red-500/18">
+                                    <i class="fab fa-laravel text-2xl text-red-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">Laravel</h3>
+                                    <p class="text-xs text-[#3D5570]">PHP Framework</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-beginner">Beginner</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">Laravel</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">PHP Framework</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="40" style="background:linear-gradient(90deg,#F87171,#FB923C); box-shadow:0 0 10px rgba(248,113,113,.4);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">MVC, routing, database integration</p><p class="text-xs font-bold text-red-400">40%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-red-400 to-orange-500 rounded-full transition-all duration-1000 ease-out" data-progress="40"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Beginner - 40%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">MVC, routing, database integration</p>
                 </div>
 
-                <!-- MySQL -->
-                <div class="bg-gray-900/50 rounded-2xl p-5 sm:p-6 border border-teal-500/20 card-hover cursor-pointer" onclick="openSkillPopup(this)" data-name="MySQL" data-description="Powerful relational database management system for efficient data storage, retrieval, and management in web applications with advanced querying capabilities and performance optimization." data-level="Intermediate">
-                    <div class="flex items-center mb-4">
-                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-orange-500/20 flex items-center justify-center mr-3 sm:mr-4">
-                            <i class="fas fa-database text-2xl sm:text-3xl text-orange-400"></i>
+                <!-- ── MySQL ── -->
+                <div class="card p-5 sm:p-6 cursor-pointer card-hover" onclick="openSkillPopup(this)"
+                    data-name="MySQL" data-level="Intermediate"
+                    data-description="Powerful relational database management system for efficient data storage, retrieval, and management in web applications with advanced querying capabilities.">
+                    <div class="card-inner">
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="flex items-center gap-4">
+                                <div class="w-11 h-11 rounded-2xl bg-orange-500/12 flex items-center justify-center border border-orange-500/18">
+                                    <i class="fas fa-database text-2xl text-orange-400"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-base text-white">MySQL</h3>
+                                    <p class="text-xs text-[#3D5570]">Database Management</p>
+                                </div>
+                            </div>
+                            <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div>
-                            <h3 class="text-lg sm:text-xl font-semibold">MySQL</h3>
-                            <p class="text-xs sm:text-sm text-gray-400">Database Management</p>
+                        <div class="progress-bar mb-2">
+                            <div class="progress-fill" data-progress="65" style="background:linear-gradient(90deg,#FB923C,#FBBF24); box-shadow:0 0 10px rgba(251,146,60,.45);"></div>
                         </div>
+                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Queries, optimization, data modeling</p><p class="text-xs font-bold text-orange-400">65%</p></div>
                     </div>
-                    <div class="progress-bar mb-2 w-full h-2 sm:h-3 bg-gray-700/50 rounded-full overflow-hidden">
-                        <div class="progress-fill h-full bg-gradient-to-r from-orange-400 to-yellow-500 rounded-full transition-all duration-1000 ease-out" data-progress="65"></div>
-                    </div>
-                    <p class="text-xs sm:text-sm text-gray-400">Intermediate - 65%</p>
-                    <p class="text-xs sm:text-sm text-gray-500 mt-2 sm:mt-3">Queries, optimization, data modeling</p>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Certificates Section -->
-    <section id="certificates" class="py-12 sm:py-16 md:py-20 bg-gray-900/30 slide-in-right">
-        <div class="container mx-auto px-4 sm:px-6">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">
-                <span class="gradient-text">Certificates & Achievements</span>
-            </h2>
-            <p class="text-center text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">Sertifikasi dan pencapaian saya</p>
+    <!-- ════════════════════════════════════════════════════════
+         CERTIFICATES
+    ════════════════════════════════════════════════════════ -->
+    <section id="certificates" class="py-16 sm:py-20 md:py-24 slide-in-right">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                <!-- Certificate 1 -->
-                <div class="bg-gray-900/50 rounded-xl overflow-hidden border border-gray-700/50 transition-all duration-300 hover:scale-105 hover:border-gray-500 hover:bg-gray-900/70">
-                    <img src="uploads/web.png" alt="Web Development Fundamentals Certificate" class="w-full h-48 object-cover" loading="lazy">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">Web Development Fundamentals</h3>
-                        <p class="text-sm text-gray-400 mb-1">Dicoding Indonesia</p>
-                        <p class="text-sm text-gray-400 mb-4">Oktober 2025</p>
-                        <a href="https://www.dicoding.com/certificates/KEXL2Q0E0ZG2" target="_blank" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition inline-block text-center">
-                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
+            <div class="text-center mb-14">
+                <p class="section-label mx-auto"><i class="fas fa-certificate text-xs"></i> Achievements</p>
+                <h2 class="section-heading text-3xl sm:text-4xl lg:text-5xl">
+                    Certificates &amp; <span class="gradient-text">Achievements</span>
+                </h2>
+                <p class="text-[#3D5570] text-sm mt-3">Sertifikasi dan pencapaian saya</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+
+                <!-- Cert 1 -->
+                <div class="cert-card group">
+                    <div class="cert-img-wrap">
+                        <img src="uploads/web.png" alt="Web Development Fundamentals" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="skill-badge badge-expert text-[10px] mb-3 inline-flex">✓ Verified</span>
+                        <h3 class="font-display font-bold text-sm text-white mb-1 leading-snug">Web Development Fundamentals</h3>
+                        <p class="text-[11px] text-teal-400 font-semibold mb-0.5">Dicoding Indonesia</p>
+                        <p class="text-[11px] text-[#3D5570] mb-4">Oktober 2025</p>
+                        <a href="https://www.dicoding.com/certificates/KEXL2Q0E0ZG2" target="_blank" class="btn-gray text-xs py-2.5">
+                            <i class="fas fa-external-link-alt text-xs"></i> Lihat Sertifikat
                         </a>
                     </div>
                 </div>
 
-                <!-- Certificate 2 -->
-                <div class="bg-gray-900/50 rounded-xl overflow-hidden border border-gray-700/50 transition-all duration-300 hover:scale-105 hover:border-gray-500 hover:bg-gray-900/70">
-                    <div class="h-48 bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center">
-                        <i class="fas fa-code text-6xl text-purple-400"></i>
+                <!-- Cert 2 -->
+                <div class="cert-card group">
+                    <div class="cert-img-wrap">
+                        <div class="cert-placeholder"><i class="fas fa-code text-5xl text-violet-400/50"></i></div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">JavaScript Advanced Concepts</h3>
-                        <p class="text-sm text-gray-400 mb-1">Udemy / Maximilian Schwarzmüller</p>
-                        <p class="text-sm text-gray-400 mb-4">Maret 2024</p>
-                        <button class="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition">
-                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
+                    <div class="p-5">
+                        <span class="skill-badge badge-advanced text-[10px] mb-3 inline-flex">Completed</span>
+                        <h3 class="font-display font-bold text-sm text-white mb-1 leading-snug">JavaScript Advanced Concepts</h3>
+                        <p class="text-[11px] text-violet-400 font-semibold mb-0.5">Udemy / M. Schwarzmüller</p>
+                        <p class="text-[11px] text-[#3D5570] mb-4">Maret 2024</p>
+                        <button class="btn-gray text-xs py-2.5">
+                            <i class="fas fa-external-link-alt text-xs"></i> Lihat Sertifikat
                         </button>
                     </div>
                 </div>
 
-                <!-- Certificate 3 -->
-                <div class="bg-gray-900/50 rounded-xl overflow-hidden border border-gray-700/50 transition-all duration-300 hover:scale-105 hover:border-gray-500 hover:bg-gray-900/70">
-                    <img src="uploads/sertif 1.WebP" alt="PHP & MySQL Complete Course Certificate" class="w-full h-48 object-cover" loading="lazy">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">PHP & MySQL Complete Course</h3>
-                        <p class="text-sm text-gray-400 mb-1">Dicoding Indonesia</p>
-                        <p class="text-sm text-gray-400 mb-4">01 October 2025</p>
-                        <a href="https://www.dicoding.com/certificates/QLZ9649E7Z5D" target="_blank" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition inline-block text-center">
-                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
+                <!-- Cert 3 -->
+                <div class="cert-card group">
+                    <div class="cert-img-wrap">
+                        <img src="uploads/sertif 1.WebP" alt="PHP & MySQL Complete Course" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="skill-badge badge-expert text-[10px] mb-3 inline-flex">✓ Verified</span>
+                        <h3 class="font-display font-bold text-sm text-white mb-1 leading-snug">PHP & MySQL Complete Course</h3>
+                        <p class="text-[11px] text-teal-400 font-semibold mb-0.5">Dicoding Indonesia</p>
+                        <p class="text-[11px] text-[#3D5570] mb-4">01 October 2025</p>
+                        <a href="https://www.dicoding.com/certificates/QLZ9649E7Z5D" target="_blank" class="btn-gray text-xs py-2.5">
+                            <i class="fas fa-external-link-alt text-xs"></i> Lihat Sertifikat
                         </a>
                     </div>
                 </div>
 
-                <!-- Certificate 4 -->
-                <div class="bg-gray-900/50 rounded-xl overflow-hidden border border-gray-700/50 transition-all duration-300 hover:scale-105 hover:border-gray-500 hover:bg-gray-900/70">
-                    <img src="uploads/sena74.WebP" alt="Sertifikat Seminar Eduverse SENA 74 Certificate" class="w-full h-48 object-cover" loading="lazy">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-white mb-2">Sertifikat Seminar Eduverse SENA 74</h3>
-                        <p class="text-sm text-gray-400 mb-1">Public Speaking & Presentasi</p>
-                        <p class="text-sm text-gray-400 mb-4">September 2024</p>
-                        <a href="uploads/sena74.WebP" target="_blank" class="w-full bg-gray-700 hover:bg-gray-600 text-white font-medium py-2 px-4 rounded-lg transition inline-block text-center">
-                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Sertifikat
+                <!-- Cert 4 -->
+                <div class="cert-card group">
+                    <div class="cert-img-wrap">
+                        <img src="uploads/sena74.WebP" alt="Seminar Eduverse SENA 74" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="skill-badge badge-intermediate text-[10px] mb-3 inline-flex">Seminar</span>
+                        <h3 class="font-display font-bold text-sm text-white mb-1 leading-snug">Seminar Eduverse SENA 74</h3>
+                        <p class="text-[11px] text-amber-400 font-semibold mb-0.5">Public Speaking & Presentasi</p>
+                        <p class="text-[11px] text-[#3D5570] mb-4">September 2024</p>
+                        <a href="uploads/sena74.WebP" target="_blank" class="btn-gray text-xs py-2.5">
+                            <i class="fas fa-external-link-alt text-xs"></i> Lihat Sertifikat
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="py-12 sm:py-16 md:py-20 bg-gray-900/20">
-        <div class="container mx-auto px-4 sm:px-6">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center mb-3 sm:mb-4">
-                <span class="gradient-text">My Projects</span>
-            </h2>
-            <p class="text-center text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">Beberapa karya dan eksperimen saya</p>
+    <!-- ════════════════════════════════════════════════════════
+         PROJECTS
+    ════════════════════════════════════════════════════════ -->
+    <section id="projects" class="py-16 sm:py-20 md:py-24 fade-in">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8">
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+            <div class="text-center mb-14">
+                <p class="section-label mx-auto"><i class="fas fa-folder-open text-xs"></i> Portfolio</p>
+                <h2 class="section-heading text-3xl sm:text-4xl lg:text-5xl">
+                    My <span class="gradient-text-warm">Projects</span>
+                </h2>
+                <p class="text-[#3D5570] text-sm mt-3">Beberapa karya dan eksperimen saya</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 max-w-6xl mx-auto">
+
                 <!-- Project 1 -->
-                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
-                    <img src="uploads/gocinema.png" alt="Project 1 Screenshot" class="w-full h-40 sm:h-48 object-cover">
-                    <div class="p-4 sm:p-6">
-                        <h3 class="text-lg sm:text-xl font-semibold mb-2">Kasir Web App</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">
-                            Aplikasi untuk memudahkan pelanggan untuk memesan tiket dari rumah.
+                <div class="project-card group">
+                    <div class="project-img-wrap">
+                        <img src="uploads/gocinema.png" alt="Kasir Web App" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0">
+                            <span class="skill-badge badge-expert text-[10px] backdrop-blur-md bg-black/30">Web App</span>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6">
+                        <h3 class="font-display font-bold text-lg text-white mb-2">Kasir Web App</h3>
+                        <p class="text-[#94A3B8] text-sm mb-5 leading-relaxed">
+                            Aplikasi untuk memudahkan pelanggan memesan tiket dari rumah dengan UI yang intuitif dan modern.
                         </p>
-                        <a href="https://gocinema.netlify.app/" target="_blank" class="inline-block bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm">
-                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Project
-                        </a>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="skill-badge badge-expert" style="font-size:9px">HTML</span>
+                                <span class="skill-badge badge-intermediate" style="font-size:9px">JS</span>
+                            </div>
+                            <a href="https://gocinema.netlify.app/" target="_blank" class="btn-ghost text-xs px-4 py-2">
+                                <i class="fas fa-external-link-alt text-xs"></i> Visit
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
-                    <img src="uploads/umkm.png" alt="Project 2 Screenshot" class="w-full h-40 sm:h-48 object-cover">
-                    <div class="p-4 sm:p-6">
-                        <h3 class="text-lg sm:text-xl font-semibold mb-2">Website UMKM</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">
-                            Website untuk membantu melariskan UMKM sekitar.
+                <div class="project-card group">
+                    <div class="project-img-wrap">
+                        <img src="uploads/umkm.png" alt="Website UMKM" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0">
+                            <span class="skill-badge badge-advanced text-[10px] backdrop-blur-md bg-black/30">UMKM</span>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6">
+                        <h3 class="font-display font-bold text-lg text-white mb-2">Website UMKM</h3>
+                        <p class="text-[#94A3B8] text-sm mb-5 leading-relaxed">
+                            Website untuk membantu melariskan UMKM sekitar dengan tampilan modern dan fully responsive.
                         </p>
-                        <a href="https://waroengnarji-creponne-1d5c01.netlify.app/" target="_blank" class="inline-block bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm">
-                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Project
-                        </a>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="skill-badge badge-expert" style="font-size:9px">HTML</span>
+                                <span class="skill-badge badge-advanced" style="font-size:9px">CSS</span>
+                            </div>
+                            <a href="https://waroengnarji-creponne-1d5c01.netlify.app/" target="_blank" class="btn-ghost text-xs px-4 py-2">
+                                <i class="fas fa-external-link-alt text-xs"></i> Visit
+                            </a>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Project 3 -->
-                <div class="bg-gray-900/50 rounded-2xl overflow-hidden border border-teal-500/20 card-hover">
-                    <img src="uploads/mount.png" alt="Project 3 Screenshot" class="w-full h-40 sm:h-48 object-cover">
-                    <div class="p-4 sm:p-6">
-                        <h3 class="text-lg sm:text-xl font-semibold mb-2">Game Roblox - Mount Obby</h3>
-                        <p class="text-gray-400 text-xs sm:text-sm mb-3 sm:mb-4">
-                            Game simulator pendakian untuk refreshing dan bersenang-senang, disuguhkan dengan grafik memukau dan berbagai UI yang menarik.
+                <div class="project-card group">
+                    <div class="project-img-wrap">
+                        <img src="uploads/mount.png" alt="Game Roblox - Mount Obby" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0">
+                            <span class="skill-badge badge-advanced text-[10px] backdrop-blur-md bg-black/30">Roblox</span>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6">
+                        <h3 class="font-display font-bold text-lg text-white mb-2">Game Roblox — Mount Obby</h3>
+                        <p class="text-[#94A3B8] text-sm mb-5 leading-relaxed">
+                            Game simulator pendakian dengan grafik memukau, UI menarik, dan mekanik seru yang mengasyikkan.
                         </p>
-                        <a href="https://www.roblox.com/games/1234567890/mount" target="_blank" class="inline-block bg-teal-500/20 hover:bg-teal-500/30 text-teal-400 font-medium py-2 px-4 rounded-lg transition text-sm">
-                            <i class="fas fa-external-link-alt mr-2"></i>Lihat Project
-                        </a>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="skill-badge badge-advanced" style="font-size:9px">Lua</span>
+                                <span class="skill-badge badge-expert" style="font-size:9px">Roblox</span>
+                            </div>
+                            <a href="https://www.roblox.com/games/1234567890/mount" target="_blank" class="btn-ghost text-xs px-4 py-2">
+                                <i class="fas fa-external-link-alt text-xs"></i> Play
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         CONTACT
+    ════════════════════════════════════════════════════════ -->
+    <section id="contact" class="relative py-16 sm:py-20 md:py-24 overflow-hidden">
+        <!-- Ambient orbs -->
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-teal-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-0 right-1/4 w-72 h-72 bg-violet-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 relative z-10">
+
+            <div class="text-center mb-14">
+                <p class="section-label mx-auto"><i class="fas fa-satellite-dish text-xs"></i> Get in Touch</p>
+                <h2 class="section-heading text-3xl sm:text-4xl lg:text-5xl mb-4">
+                    Let's <span class="gradient-text">Connect</span>
+                </h2>
+                <p class="text-[#3D5570] text-sm max-w-md mx-auto leading-relaxed">
+                    Temukan saya di platform favoritmu. Jangan ragu untuk berbicara tentang proyek, desain, atau ide gila lainnya 🚀
+                </p>
+            </div>
+
+            <!-- Contact cards row -->
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-5 max-w-4xl mx-auto">
+
+                <!-- LinkedIn -->
+                <a href="https://linkedin.com/in/FachriNandraSyahputra" target="_blank" rel="noopener noreferrer"
+                    class="contact-card w-40 sm:w-44 group">
+                    <img src="uploads/linkedin.png" alt="LinkedIn" class="w-11 mb-3 transition-transform duration-400 group-hover:scale-110">
+                    <h3 class="font-display font-bold text-sm text-teal-300 mb-1">LinkedIn</h3>
+                    <p class="text-[11px] text-[#3D5570] mb-3">@Fachri Nandra</p>
+                    <span class="skill-badge badge-expert" style="font-size:10px"><i class="fas fa-arrow-right text-[9px]"></i> Kunjungi</span>
+                </a>
+
+                <!-- TikTok -->
+                <a href="https://tiktok.com/@nandrooww" target="_blank" rel="noopener noreferrer"
+                    class="contact-card w-40 sm:w-44 group">
+                    <img src="uploads/tiktok.png" alt="TikTok" class="w-11 mb-3 brightness-110 transition-transform duration-400 group-hover:scale-110">
+                    <h3 class="font-display font-bold text-sm text-cyan-400 mb-1">TikTok</h3>
+                    <p class="text-[11px] text-[#3D5570] mb-3">@nandrooww</p>
+                    <span class="skill-badge badge-advanced" style="font-size:10px"><i class="fas fa-arrow-right text-[9px]"></i> Kunjungi</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://instagram.com/ndr4._sys" target="_blank" rel="noopener noreferrer"
+                    class="contact-card w-40 sm:w-44 group">
+                    <img src="uploads/ig.png" alt="Instagram" class="w-11 mb-3 brightness-110 transition-transform duration-400 group-hover:scale-110">
+                    <h3 class="font-display font-bold text-sm text-pink-400 mb-1">Instagram</h3>
+                    <p class="text-[11px] text-[#3D5570] mb-3">@ndr4._sys</p>
+                    <span class="skill-badge" style="background:rgba(244,114,182,.14);color:#F472B6;border:1px solid rgba(244,114,182,.28);font-size:10px"><i class="fas fa-arrow-right text-[9px]"></i> Kunjungi</span>
+                </a>
+
+                <!-- WhatsApp -->
+                <a href="https://wa.me/6285161858758?text=Halo%20Nandra%2C%20saya%20ingin%20bertanya%20tentang%20project%20Anda" target="_blank" rel="noopener noreferrer"
+                    class="contact-card w-40 sm:w-44 group">
+                    <img src="uploads/pp wa.png" alt="WhatsApp" class="w-11 mb-3 brightness-110 transition-transform duration-400 group-hover:scale-110">
+                    <h3 class="font-display font-bold text-sm text-green-400 mb-1">WhatsApp</h3>
+                    <p class="text-[11px] text-[#3D5570] mb-3">+62 851 6185 8758</p>
+                    <span class="skill-badge" style="background:rgba(74,222,128,.12);color:#4ADE80;border:1px solid rgba(74,222,128,.28);font-size:10px"><i class="fas fa-comment-dots text-[9px]"></i> Chat</span>
+                </a>
+
+                <!-- Telegram -->
+                <a href="https://t.me/FachriNandra" target="_blank" rel="noopener noreferrer"
+                    class="contact-card w-40 sm:w-44 group">
+                    <img src="uploads/telegram.png" alt="Telegram" class="w-11 mb-3 brightness-110 transition-transform duration-400 group-hover:scale-110">
+                    <h3 class="font-display font-bold text-sm text-sky-400 mb-1">Telegram</h3>
+                    <p class="text-[11px] text-[#3D5570] mb-3">@Fachri Nandra</p>
+                    <span class="skill-badge" style="background:rgba(56,189,248,.12);color:#38BDF8;border:1px solid rgba(56,189,248,.28);font-size:10px"><i class="fas fa-arrow-right text-[9px]"></i> Kunjungi</span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         FOOTER
+    ════════════════════════════════════════════════════════ -->
+    <footer class="border-t border-white/[.04] py-8">
+        <div class="max-w-7xl mx-auto px-5 sm:px-8 text-center">
+            <p class="font-display font-extrabold text-lg gradient-text mb-1">&lt;Nandra /&gt;</p>
+            <p class="text-[#3D5570] text-xs mb-1">&copy; 2024 Fachri Nandra Syahputra. All rights reserved.</p>
+            <p class="text-[#3D5570] text-xs">using HTML, CSS &amp; Tailwind</p>
+        </div>
+    </footer>
+
+    <!-- ════════════════════════════════════════════════════════
+         CERTIFICATE MODAL
+    ════════════════════════════════════════════════════════ -->
+    <div id="certificateModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 backdrop-blur-sm px-4">
+        <div class="bg-[#071120] rounded-3xl p-3 sm:p-4 max-w-4xl w-full relative border border-teal-500/25 shadow-2xl shadow-teal-500/10">
+            <button onclick="closeCertificate()"
+                class="absolute top-3 right-3 text-[#3D5570] hover:text-white transition z-10 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10">
+                <i class="fas fa-times text-sm"></i>
+            </button>
+            <img id="certificateImage" src="" alt="Certificate" class="w-full rounded-2xl mt-8 sm:mt-4 shadow-lg">
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         SKILL MODAL
+    ════════════════════════════════════════════════════════ -->
+    <div id="skillModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50 backdrop-blur-sm px-4 skill-modal-overlay">
+        <div class="max-w-md w-full relative skill-modal-card p-6 sm:p-8 shadow-2xl shadow-teal-500/18">
+            <button onclick="closeSkillPopup()"
+                class="absolute top-4 right-4 text-[#3D5570] hover:text-white transition-all duration-300 z-10 hover:rotate-90 hover:scale-110 w-8 h-8 flex items-center justify-center rounded-full bg-white/[.05] hover:bg-white/10">
+                <i class="fas fa-times text-sm"></i>
+            </button>
+            <div class="text-center relative z-10">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-2xl bg-gradient-to-br from-teal-400 via-blue-500 to-violet-500 flex items-center justify-center mb-5 skill-icon-container shadow-lg shadow-teal-500/28">
+                    <i id="skillIcon" class="fas fa-code text-3xl sm:text-4xl text-white skill-icon-element"></i>
+                </div>
+                <h3 id="skillName" class="font-display text-2xl sm:text-3xl font-extrabold gradient-text mb-3 skill-name-text">Skill Name</h3>
+                <p id="skillDescription" class="text-[#94A3B8] text-sm sm:text-base mb-6 leading-relaxed px-2">Skill description here.</p>
+                <div class="bg-white/[.025] border border-white/[.06] rounded-2xl p-5 skill-level-container">
+                    <p class="text-[10px] text-[#3D5570] mb-1 font-bold uppercase tracking-widest">Proficiency Level</p>
+                    <p id="skillLevel" class="font-display text-xl font-extrabold gradient-text">Advanced</p>
+                    <div class="mt-3 h-2 bg-white/[.04] rounded-full overflow-hidden">
+                        <div id="skillLevelBar" class="h-full bg-gradient-to-r from-teal-400 to-violet-500 rounded-full skill-level-progress" style="box-shadow:0 0 10px rgba(45,212,191,.5)"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="relative py-16 sm:py-20 md:py-24 bg-gradient-to-b from-[#0a0f1c] via-[#0e1627] to-[#0a0f1c] text-white overflow-hidden">
-        <div class="container mx-auto px-4 sm:px-6 text-center relative z-10">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-teal-400 tracking-wide">Let's Connect</h2>
-            <p class="text-gray-400 mb-8 sm:mb-12 max-w-xl mx-auto text-sm sm:text-base px-4">Temukan saya di platform favoritmu. Jangan ragu untuk terhubung dan berbicara tentang proyek, desain, atau ide gila lainnya 🚀</p>
-            
-            <div class="flex flex-wrap justify-center gap-6 sm:gap-8 max-w-7xl mx-auto">
-                <!-- LinkedIn -->
-                <a href="https://linkedin.com/in/FachriNandraSyahputra" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-5 sm:p-6 w-60 h-60 rounded-tl-[40px] rounded-br-[20px] shadow-[0_0_20px_#00f2ff30] hover:shadow-[0_0_30px_#00f2ff80] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
-                    <img src="uploads/linkedin.png" alt="LinkedIn" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-125 group-hover:scale-110 transition-transform duration-500" />
-                    <h3 class="text-lg sm:text-xl font-semibold text-teal-300 mb-1">LinkedIn</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">@Fachri Nandra</p>
-                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-teal-500/20 group-hover:bg-teal-500/40 border border-teal-400 rounded-full transition-all duration-300">
-                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Kunjungi
-                    </span>
-                    <div class="absolute inset-0 rounded-tl-[40px] rounded-br-[20px] border border-teal-500/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
-                </a>
-                
-                <!-- TikTok -->
-                <a href="https://tiktok.com/@nandrooww" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-bl from-[#10172d] to-[#182747] p-5 sm:p-6 w-60 h-60 rounded-tr-[40px] rounded-bl-[10px] shadow-[0_0_20px_#00fff530] hover:shadow-[0_0_30px_#00fff580] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
-                    <img src="uploads/tiktok.png" alt="TikTok" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-110 group-hover:scale-110 transition-transform duration-500" />
-                    <h3 class="text-lg sm:text-xl font-semibold text-cyan-400 mb-1">TikTok</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">@nandrooww</p>
-                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-cyan-500/20 group-hover:bg-cyan-500/40 border border-cyan-400 rounded-full transition-all duration-300">
-                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Kunjungi
-                    </span>
-                    <div class="absolute inset-0 rounded-tr-[40px] rounded-bl-[10px] border border-cyan-400/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
-                </a>
-                
-                <!-- Instagram -->
-                <a href="https://instagram.com/ndr4._sys" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-tl from-[#141b2e] to-[#1b2a48] p-5 sm:p-6 w-60 h-60 rounded-b-[40px] shadow-[0_0_20px_#ff00ff30] hover:shadow-[0_0_30px_#ff00ff80] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
-                    <img src="uploads/ig.png" alt="Instagram" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-110 group-hover:scale-110 transition-transform duration-500" />
-                    <h3 class="text-lg sm:text-xl font-semibold text-pink-400 mb-1">Instagram</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">@ndr4._sys</p>
-                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-pink-500/20 group-hover:bg-pink-500/40 border border-pink-400 rounded-full transition-all duration-300">
-                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Kunjungi
-                    </span>
-                    <div class="absolute inset-0 rounded-b-[40px] border border-pink-400/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
-                </a>
-                
-                <!-- WhatsApp -->
-                <a href="https://wa.me/6285161858758?text=Halo%20Nandra%2C%20saya%20ingin%20bertanya%20tentang%20project%20Anda" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-tr from-[#0d1b24] to-[#11313d] p-5 sm:p-6 w-60 h-60 rounded-bl-[40px] rounded-tr-[15px] shadow-[0_0_20px_#00ff8030] hover:shadow-[0_0_30px_#00ff8080] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
-                    <img src="uploads/pp wa.png" alt="WhatsApp" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-110 group-hover:scale-110 transition-transform duration-500" />
-                    <h3 class="text-lg sm:text-xl font-semibold text-green-400 mb-1">WhatsApp</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">+62 851 6185 8758</p>
-                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-green-500/20 group-hover:bg-green-500/40 border border-green-400 rounded-full transition-all duration-300">
-                        <i class="fas fa-comment-dots mr-1 sm:mr-2"></i>Chat
-                    </span>
-                    <div class="absolute inset-0 rounded-bl-[40px] rounded-tr-[15px] border border-green-400/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
-                </a>
-                
-                <!-- Telegram -->
-                <a href="https://t.me/FachriNandra" target="_blank" rel="noopener noreferrer" class="contact-card relative group bg-gradient-to-tr from-[#101a27] to-[#1b2f3c] p-5 sm:p-6 w-60 h-60 rounded-tr-[50px] rounded-bl-[20px] shadow-[0_0_20px_#00c3ff30] hover:shadow-[0_0_30px_#00c3ff80] transition-all duration-500 hover:-translate-y-2 cursor-pointer block">
-                    <img src="uploads/telegram.png" alt="Telegram" class="mx-auto w-12 sm:w-16 mb-3 sm:mb-4 brightness-110 group-hover:scale-110 transition-transform duration-500" />
-                    <h3 class="text-lg sm:text-xl font-semibold text-sky-400 mb-1">Telegram</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm mb-2 sm:mb-3 px-2">@Fachri Nandra</p>
-                    <span class="inline-block px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold bg-sky-500/20 group-hover:bg-sky-500/40 border border-sky-400 rounded-full transition-all duration-300">
-                        <i class="fas fa-arrow-right mr-1 sm:mr-2"></i>Kunjungi
-                    </span>
-                    <div class="absolute inset-0 rounded-tr-[50px] rounded-bl-[20px] border border-sky-400/40 opacity-0 group-hover:opacity-100 blur-md transition-all duration-500"></div>
-                </a>
-            </div>
-        </div>
-
-        <!-- Background Glow Orbs -->
-        <div class="absolute top-10 left-10 sm:left-20 w-48 sm:w-72 h-48 sm:h-72 bg-teal-500/10 rounded-full blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-10 right-10 sm:right-24 w-40 sm:w-64 h-40 sm:h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-    </section>
-
-    <!-- Certificate Modal -->
-    <div id="certificateModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 backdrop-blur-sm px-4">
-        <div class="bg-gray-900 rounded-2xl p-3 sm:p-4 max-w-4xl w-full relative border border-teal-500/30 shadow-lg shadow-teal-500/10">
-            <button onclick="closeCertificate()" class="absolute top-2 right-2 sm:top-3 sm:right-3 text-gray-400 hover:text-white transition z-10">
-                <i class="fas fa-times text-xl sm:text-2xl"></i>
-            </button>
-            <img id="certificateImage" src="" alt="Certificate Image" class="w-full rounded-xl mt-8 sm:mt-4 shadow-lg border border-gray-800/50">
-        </div>
     </div>
 
-    <!-- Skill Popup Modal -->
-<div id="skillModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 backdrop-blur-sm px-4 skill-modal-overlay">
-    <div class="bg-gradient-to-br from-gray-900/95 via-gray-800/90 to-gray-900/95 backdrop-blur-xl rounded-3xl p-6 sm:p-8 max-w-md w-full relative border border-teal-500/30 shadow-2xl shadow-teal-500/20 skill-modal-card">
-        <button onclick="closeSkillPopup()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-all duration-300 z-10 hover:rotate-90 hover:scale-110">
-            <i class="fas fa-times text-xl sm:text-2xl"></i>
-        </button>
-        <div class="text-center">
-            <div class="w-20 h-20 sm:w-24 sm:h-24 mx-auto rounded-2xl bg-gradient-to-br from-teal-400 via-blue-500 to-purple-500 flex items-center justify-center mb-5 skill-icon-container shadow-lg shadow-teal-500/30">
-                <i id="skillIcon" class="fas fa-code text-3xl sm:text-4xl text-white skill-icon-element"></i>
-            </div>
-            <h3 id="skillName" class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent mb-3 skill-name-text">Skill Name</h3>
-            <p id="skillDescription" class="text-gray-300 text-sm sm:text-base mb-6 leading-relaxed px-2">Skill description here.</p>
-            <div class="bg-gradient-to-r from-gray-800/60 to-gray-700/40 rounded-2xl p-5 border border-gray-700/50 backdrop-blur-sm skill-level-container">
-                <p class="text-sm text-gray-400 mb-2 font-medium">Proficiency Level</p>
-                <p id="skillLevel" class="text-xl font-bold bg-gradient-to-r from-teal-300 to-blue-300 bg-clip-text text-transparent">Advanced</p>
-                <div class="mt-3 h-2 bg-gray-700/50 rounded-full overflow-hidden">
-                    <div id="skillLevelBar" class="h-full bg-gradient-to-r from-teal-400 to-blue-500 rounded-full skill-level-progress"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900/50 py-6 sm:py-8 border-t border-teal-500/20">
-        <div class="container mx-auto px-4 sm:px-6 text-center">
-            <p class="text-gray-400 text-sm sm:text-base">&copy; 2024 Fachri Nandra Syahputra. All rights reserved.</p>
-            <p class="text-gray-500 text-xs sm:text-sm mt-2">Built with 💙 using Tailwind CSS</p>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
+    <!-- ════════════════════════════════════════════════════════
+         SCRIPTS
+    ════════════════════════════════════════════════════════ -->
     <script src="assets/js/app.js" defer></script>
     <script src="assets/js/main.js" defer></script>
 
 </body>
 </html>
-  
