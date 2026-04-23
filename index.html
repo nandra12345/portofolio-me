@@ -20,375 +20,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <style>
-        /* ═══════════════════════════ TOKENS ═══════════════════════════ */
-        :root {
-            --bg:          #030B18;
-            --bg-surface:  #071120;
-            --bg-card:     rgba(8, 18, 36, 0.88);
-            --border:      rgba(45, 212, 191, 0.15);
-            --border-h:    rgba(45, 212, 191, 0.42);
-            --teal:        #2DD4BF;
-            --teal-d:      rgba(45, 212, 191, 0.10);
-            --teal-glow:   rgba(45, 212, 191, 0.30);
-            --violet:      #818CF8;
-            --violet-d:    rgba(129, 140, 248, 0.10);
-            --amber:       #FBBF24;
-            --amber-d:     rgba(251, 191, 36, 0.10);
-            --txt:         #EFF6FF;
-            --txt-2:       #94A3B8;
-            --txt-3:       #3D5570;
-        }
-
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--bg);
-            color: var(--txt);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* ═══════════════════════════ TYPOGRAPHY ═══════════════════════════ */
-        .font-display { font-family: 'Syne', sans-serif; }
-
-        .gradient-text {
-            background: linear-gradient(130deg, var(--teal) 0%, var(--violet) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .gradient-text-warm {
-            background: linear-gradient(130deg, var(--teal) 10%, var(--amber) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ═══════════════════════════ BACKGROUNDS ═══════════════════════════ */
-        .bg-gradient-layer {
-            position: fixed; inset: 0; z-index: -4; pointer-events: none;
-            background:
-                radial-gradient(ellipse 80% 60% at 10% 0%,  rgba(45,212,191,.08)  0%, transparent 55%),
-                radial-gradient(ellipse 60% 50% at 90% 100%, rgba(129,140,248,.07) 0%, transparent 55%),
-                radial-gradient(ellipse 50% 40% at 50% 50%,  rgba(251,191,36,.03)  0%, transparent 65%);
-        }
-        .bg-grid {
-            position: fixed; inset: 0; z-index: -3; pointer-events: none;
-            background-image:
-                linear-gradient(rgba(45,212,191,.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(45,212,191,.025) 1px, transparent 1px);
-            background-size: 64px 64px;
-        }
-        .bg-particles { position: fixed; inset: 0; z-index: -2; overflow: hidden; pointer-events: none; }
-        .particle {
-            position: absolute; width: 2px; height: 2px; border-radius: 50%;
-            background: var(--teal); box-shadow: 0 0 6px var(--teal);
-            animation: floaty 12s infinite ease-in-out alternate;
-        }
-        @keyframes floaty {
-            from { transform: translateY(0) translateX(0); opacity: .8; }
-            to   { transform: translateY(-44px) translateX(10px); opacity: .15; }
-        }
-        .bg-glow {
-            position: fixed; inset: 0; z-index: -1; pointer-events: none;
-            background: radial-gradient(circle at 50% 50%, rgba(129,140,248,.04), transparent 70%);
-            transition: transform .4s ease;
-        }
-
-        /* ═══════════════════════════ NAVBAR ═══════════════════════════ */
-        .navbar {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: rgba(3, 11, 24, .78);
-            border-bottom: 1px solid rgba(45,212,191,.08);
-        }
-        .nav-link-item {
-            font-size: .875rem; font-weight: 500;
-            color: var(--txt-2);
-            transition: color .25s;
-            position: relative; padding-bottom: 2px;
-        }
-        .nav-link-item::after {
-            content: ''; position: absolute; bottom: -2px; left: 0;
-            width: 0; height: 2px;
-            background: linear-gradient(90deg, var(--teal), var(--violet));
-            border-radius: 999px; transition: width .3s;
-        }
-        .nav-link-item:hover { color: var(--teal); }
-        .nav-link-item:hover::after { width: 100%; }
-
-        /* ═══════════════════════════ CARDS ═══════════════════════════ */
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 22px;
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            transition: all .35s cubic-bezier(.34,1.56,.64,1);
-            position: relative; overflow: hidden;
-        }
-        .card::before {
-            content: ''; position: absolute; inset: 0;
-            background: radial-gradient(circle at 65% 0%, rgba(45,212,191,.07), transparent 60%);
-            opacity: 0; transition: opacity .35s; border-radius: inherit; pointer-events: none;
-        }
-        .card:hover {
-            border-color: var(--border-h);
-            transform: translateY(-7px);
-            box-shadow: 0 22px 60px rgba(45,212,191,.14), 0 0 0 1px rgba(45,212,191,.09);
-        }
-        .card:hover::before { opacity: 1; }
-        .card-inner { position: relative; z-index: 1; }
-        .card-hover { /* alias used by JS/HTML */ }
-
-        /* ═══════════════════════════ PROGRESS BAR ═══════════════════════════ */
-        .progress-bar {
-            height: 6px; border-radius: 999px;
-            background: rgba(255,255,255,.05); overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%; border-radius: 999px;
-            background: linear-gradient(90deg, var(--teal), var(--violet));
-            transition: width 1.2s cubic-bezier(.34,1.56,.64,1);
-            box-shadow: 0 0 10px rgba(45,212,191,.45);
-        }
-
-        /* ═══════════════════════════ LABELS / BADGES ═══════════════════════════ */
-        .section-label {
-            display: inline-flex; align-items: center; gap: 7px;
-            font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-            color: var(--teal);
-            background: var(--teal-d); border: 1px solid rgba(45,212,191,.22);
-            border-radius: 999px; padding: 6px 14px; margin-bottom: 14px;
-        }
-        .section-heading { font-family: 'Syne', sans-serif; font-weight: 800; line-height: 1.1; }
-
-        .skill-badge {
-            display: inline-flex; align-items: center; gap: 4px;
-            font-size: .65rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
-            padding: 3px 10px; border-radius: 999px;
-        }
-        .badge-expert       { background: rgba(45,212,191,.14);  color: #2DD4BF; border: 1px solid rgba(45,212,191,.28); }
-        .badge-advanced     { background: rgba(129,140,248,.14); color: #818CF8; border: 1px solid rgba(129,140,248,.28); }
-        .badge-intermediate { background: rgba(251,191,36,.14);  color: #FBBF24; border: 1px solid rgba(251,191,36,.28); }
-        .badge-beginner     { background: rgba(148,163,184,.10); color: #94A3B8; border: 1px solid rgba(148,163,184,.22); }
-
-        /* ═══════════════════════════ INFO TILES ═══════════════════════════ */
-        .info-tile {
-            background: rgba(255,255,255,.025); border: 1px solid rgba(255,255,255,.06);
-            border-radius: 18px; padding: 16px 18px; transition: all .28s;
-        }
-        .info-tile:hover { border-color: var(--border-h); }
-
-        .strength-tile {
-            background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.05);
-            border-radius: 14px; padding: 14px 16px;
-            display: flex; align-items: flex-start; gap: 12px; transition: all .25s;
-        }
-        .strength-tile:hover { border-color: rgba(45,212,191,.22); background: rgba(45,212,191,.03); }
-
-        /* ═══════════════════════════ CERT CARD ═══════════════════════════ */
-        .cert-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 20px; overflow: hidden;
-            transition: all .35s ease; backdrop-filter: blur(12px);
-        }
-        .cert-card:hover {
-            border-color: var(--border-h);
-            transform: translateY(-7px) scale(1.01);
-            box-shadow: 0 20px 50px rgba(45,212,191,.12);
-        }
-        .cert-img-wrap {
-            position: relative; overflow: hidden; height: 176px;
-            background: linear-gradient(135deg, var(--teal-d), var(--violet-d));
-        }
-        .cert-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .55s; }
-        .cert-card:hover .cert-img-wrap img { transform: scale(1.06); }
-        .cert-placeholder {
-            width:100%; height:100%; display:flex; align-items:center; justify-content:center;
-            background: linear-gradient(135deg, var(--violet-d), var(--teal-d));
-        }
-
-        /* ═══════════════════════════ PROJECT CARD ═══════════════════════════ */
-        .project-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 22px; overflow: hidden; transition: all .35s ease;
-        }
-        .project-card:hover {
-            border-color: var(--border-h);
-            transform: translateY(-9px);
-            box-shadow: 0 24px 60px rgba(45,212,191,.14);
-        }
-        .project-img-wrap { position:relative; overflow:hidden; height: 204px; }
-        .project-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .55s; }
-        .project-card:hover .project-img-wrap img { transform: scale(1.07); }
-        .project-overlay {
-            position:absolute; inset:0;
-            background: linear-gradient(to top, rgba(3,11,22,.92) 0%, transparent 55%);
-            opacity:0; transition:opacity .35s;
-        }
-        .project-card:hover .project-overlay { opacity:1; }
-
-        /* ═══════════════════════════ CONTACT CARD ═══════════════════════════ */
-        .contact-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: 24px; transition: all .35s cubic-bezier(.34,1.56,.64,1);
-            position: relative; overflow: hidden;
-            display:flex; flex-direction:column; align-items:center;
-            justify-content:center; text-align:center; padding: 28px 20px;
-        }
-        .contact-card::before {
-            content:''; position:absolute; inset:0;
-            background: radial-gradient(circle at 50% 0%, var(--teal-d), transparent 70%);
-            opacity:0; transition:opacity .35s; pointer-events:none;
-        }
-        .contact-card:hover {
-            border-color: var(--border-h);
-            transform: translateY(-9px);
-            box-shadow: 0 20px 50px var(--teal-glow);
-        }
-        .contact-card:hover::before { opacity:1; }
-
-        /* ═══════════════════════════ BUTTONS ═══════════════════════════ */
-        .btn-primary {
-            display:inline-flex; align-items:center; gap:8px;
-            background: linear-gradient(135deg, var(--teal), var(--violet));
-            color: #041020; font-family:'DM Sans',sans-serif;
-            font-weight:700; font-size:.875rem;
-            padding:12px 28px; border-radius:999px;
-            transition:all .3s; border:none; cursor:pointer; text-decoration:none;
-        }
-        .btn-primary:hover {
-            transform:translateY(-2px);
-            box-shadow:0 14px 36px rgba(45,212,191,.38);
-            filter:brightness(1.08);
-        }
-        .btn-ghost {
-            display:inline-flex; align-items:center; gap:7px;
-            background: var(--teal-d); color:var(--teal);
-            font-family:'DM Sans',sans-serif; font-weight:600; font-size:.85rem;
-            padding:10px 22px; border-radius:999px;
-            border:1px solid rgba(45,212,191,.28);
-            transition:all .3s; cursor:pointer; text-decoration:none;
-        }
-        .btn-ghost:hover {
-            background:rgba(45,212,191,.18); border-color:var(--teal);
-            transform:translateY(-2px); box-shadow:0 8px 22px rgba(45,212,191,.2);
-        }
-        .btn-gray {
-            display:inline-flex; align-items:center; justify-content:center; gap:7px;
-            background:rgba(255,255,255,.05); color:var(--txt-2);
-            font-family:'DM Sans',sans-serif; font-weight:500; font-size:.82rem;
-            padding:9px 20px; border-radius:12px;
-            border:1px solid rgba(255,255,255,.07);
-            transition:all .28s; cursor:pointer; text-decoration:none; width:100%;
-        }
-        .btn-gray:hover {
-            background:rgba(255,255,255,.09); color:var(--txt);
-            border-color:rgba(255,255,255,.14);
-        }
-
-        /* ═══════════════════════════ SCROLL ANIMATIONS ═══════════════════════════ */
-        .fade-in { opacity:0; transform:translateY(30px); transition:opacity .8s ease,transform .8s ease; }
-        .fade-in.visible { opacity:1; transform:translateY(0); }
-        .slide-in-left  { opacity:0; transform:translateX(-50px); transition:opacity .8s ease,transform .8s ease; }
-        .slide-in-left.visible { opacity:1; transform:translateX(0); }
-        .slide-in-right { opacity:0; transform:translateX(50px); transition:opacity .8s ease,transform .8s ease; }
-        .slide-in-right.visible { opacity:1; transform:translateX(0); }
-
-        /* ═══════════════════════════ TYPING ═══════════════════════════ */
-        .typing { border-right:3px solid var(--teal); animation:blink 1s infinite; }
-        @keyframes blink { 0%,49%{border-color:var(--teal);} 50%,100%{border-color:transparent;} }
-
-        /* ═══════════════════════════ FLOATING PROFILE ═══════════════════════════ */
-        .floating-profile { animation:floating 4s ease-in-out infinite; }
-        @keyframes floating { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-14px);} }
-        .tilt-on-hover { transition:transform .3s ease; }
-        .tilt-on-hover:hover { transform:scale(1.05) rotate(3deg); }
-
-        /* ═══════════════════════════ LAZY IMAGE ═══════════════════════════ */
-        .lazy-image {
-            opacity:0; transform:scale(.97);
-            transition:opacity .6s ease,transform .6s ease,filter .6s ease;
-            filter:blur(8px);
-        }
-        .lazy-image.loaded { opacity:1; transform:scale(1); filter:blur(0); }
-
-        /* ═══════════════════════════ GLOW (hero ring) ═══════════════════════════ */
-        .glow { box-shadow:0 0 30px var(--teal-glow),0 0 60px rgba(45,212,191,.09); }
-
-        /* ═══════════════════════════ SECTION DIVIDER ═══════════════════════════ */
-        .section-divider {
-            height:1px; max-width:420px; margin:0 auto;
-            background:linear-gradient(90deg,transparent,rgba(45,212,191,.22),transparent);
-        }
-
-        /* ═══════════════════════════ PING DOT ═══════════════════════════ */
-        @keyframes ping { 75%,100%{transform:scale(2);opacity:0;} }
-        .ping { animation:ping 1.5s cubic-bezier(0,0,.2,1) infinite; }
-
-        /* ═══════════════════════════ SKILL MODAL ═══════════════════════════ */
-        .skill-modal-overlay { animation:fadeIn .3s ease-out; }
-        @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
-
-        .skill-modal-card {
-            animation:modalSlideUp .4s cubic-bezier(.34,1.56,.64,1);
-            position:relative; overflow:hidden;
-            background:linear-gradient(135deg,rgba(5,14,30,.98),rgba(8,20,45,.95));
-            border:1px solid var(--border-h); border-radius:28px;
-        }
-        .skill-modal-card::before {
-            content:''; position:absolute; top:-50%; left:-50%;
-            width:200%; height:200%;
-            background:radial-gradient(circle,rgba(45,212,191,.07) 0%,transparent 55%);
-            animation:pulseGlow 3s ease-in-out infinite; pointer-events:none;
-        }
-        @keyframes modalSlideUp {
-            from{opacity:0;transform:translateY(50px) scale(.9);}
-            to{opacity:1;transform:translateY(0) scale(1);}
-        }
-        @keyframes pulseGlow { 0%,100%{opacity:.5;} 50%{opacity:1;} }
-
-        .skill-icon-container { animation:iconBounce .6s cubic-bezier(.68,-.55,.265,1.55) .2s backwards; transition:all .3s; }
-        .skill-icon-container:hover { transform:scale(1.1) rotate(5deg); }
-        @keyframes iconBounce {
-            0%{opacity:0;transform:scale(0) rotate(-180deg);}
-            70%{transform:scale(1.1) rotate(10deg);}
-            100%{opacity:1;transform:scale(1) rotate(0);}
-        }
-        .skill-icon-element { animation:iconFloat 2s ease-in-out infinite; }
-        @keyframes iconFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-5px);} }
-        .skill-name-text { animation:textSlideIn .5s ease-out .3s backwards; }
-        @keyframes textSlideIn { from{opacity:0;transform:translateX(-20px);} to{opacity:1;transform:translateX(0);} }
-        .skill-level-container { animation:fadeSlideUp .5s ease-out .4s backwards; }
-        @keyframes fadeSlideUp { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
-        .skill-level-progress { animation:progressFill 1s ease-out .6s backwards; }
-        @keyframes progressFill { from{width:0%;} }
-        .skill-modal-overlay.closing { animation:fadeOut .3s ease-out forwards; }
-        .skill-modal-overlay.closing .skill-modal-card { animation:modalSlideDown .3s ease-out forwards; }
-        @keyframes fadeOut  { from{opacity:1;} to{opacity:0;} }
-        @keyframes modalSlideDown {
-            from{opacity:1;transform:translateY(0) scale(1);}
-            to{opacity:0;transform:translateY(28px) scale(.96);}
-        }
-
-        /* ═══════════════════════════ SCROLLBAR ═══════════════════════════ */
-        ::-webkit-scrollbar { width:5px; }
-        ::-webkit-scrollbar-track { background:var(--bg); }
-        ::-webkit-scrollbar-thumb { background:rgba(45,212,191,.25); border-radius:3px; }
-        ::-webkit-scrollbar-thumb:hover { background:rgba(45,212,191,.45); }
-
-        /* ═══════════════════════════ NAV MOBILE UNDERLINE ═══════════════════════════ */
-        .nav-underline {
-            position:absolute; bottom:0; left:0; height:2px; width:0;
-            background:linear-gradient(90deg,var(--teal),var(--violet));
-            transition:width .3s; border-radius:999px;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="antialiased">
@@ -538,7 +170,7 @@
                             </div>
                             <p class="font-semibold text-sm text-white">Fachri Nandra Syahputra</p>
                         </div>
-                        <a href="https://www.google.com/maps/place/6%C2%B020'42.0%22S+106%C2%B055'48.1%22E/@-6.3450508,106.9300285,20.25z"
+                        <a href="https://maps.app.goo.gl/BKcdMbULhoK88J998"
                             target="_blank" class="info-tile cursor-pointer block">
                             <div class="flex items-center gap-2 mb-2">
                                 <i class="fas fa-map-marker-alt text-violet-400 text-sm"></i>
@@ -562,7 +194,7 @@
                             <i class="fas fa-star text-amber-400 text-xs"></i> Professional Summary
                         </h3>
                         <p class="text-[#94A3B8] text-sm leading-relaxed text-left">
-                            Passionate <strong class="text-white">16-year-old developer</strong> from
+                            Passionate <strong class="text-white">17-year-old developer</strong> from
                             <strong class="text-teal-400">Prestasi Prima School</strong> with hands-on experience in
                             <strong class="text-white">full-stack web development</strong> and
                             <strong class="text-white">game design</strong>. Currently running a successful
@@ -654,10 +286,7 @@
                             </div>
                             <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="75" style="background:linear-gradient(90deg,#FBBF24,#F97316); box-shadow:0 0 10px rgba(251,191,36,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">ES6+, React, Node.js, async/await</p><p class="text-xs font-bold text-yellow-400">75%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">ES6+, React, Node.js, async/await</p>
                     </div>
                 </div>
 
@@ -678,10 +307,7 @@
                             </div>
                             <span class="skill-badge badge-expert">Expert</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="90" style="background:linear-gradient(90deg,#FB923C,#F59E0B); box-shadow:0 0 10px rgba(251,146,60,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Semantic HTML, SEO optimization</p><p class="text-xs font-bold text-orange-400">90%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">Semantic HTML, SEO optimization</p>
                     </div>
                 </div>
 
@@ -702,10 +328,7 @@
                             </div>
                             <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="60" style="background:linear-gradient(90deg,#A78BFA,#EC4899); box-shadow:0 0 10px rgba(167,139,250,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">PDO, MySQL, REST API</p><p class="text-xs font-bold text-violet-400">60%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">PDO, MySQL, REST API</p>
                     </div>
                 </div>
 
@@ -726,10 +349,7 @@
                             </div>
                             <span class="skill-badge badge-advanced">Advanced</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="88" style="background:linear-gradient(90deg,#60A5FA,#22D3EE); box-shadow:0 0 10px rgba(96,165,250,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Extensions, debugging, Git integration</p><p class="text-xs font-bold text-blue-400">88%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">Extensions, debugging, Git integration</p>
                     </div>
                 </div>
 
@@ -750,10 +370,7 @@
                             </div>
                             <span class="skill-badge badge-advanced">Advanced</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="90" style="background:linear-gradient(90deg,#F87171,#FB923C); box-shadow:0 0 10px rgba(248,113,113,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Lua scripting, game mechanics, UI design</p><p class="text-xs font-bold text-red-400">90%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">Lua scripting, game mechanics, UI design</p>
                     </div>
                 </div>
 
@@ -774,10 +391,7 @@
                             </div>
                             <span class="skill-badge badge-advanced">Advanced</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="80" style="background:linear-gradient(90deg,#2DD4BF,#818CF8); box-shadow:0 0 10px rgba(45,212,191,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Responsive design, custom configs, dark mode</p><p class="text-xs font-bold text-teal-400">80%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">Responsive design, custom configs, dark mode</p>
                     </div>
                 </div>
 
@@ -798,10 +412,7 @@
                             </div>
                             <span class="skill-badge badge-advanced">Advanced</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="90" style="background:linear-gradient(90deg,#60A5FA,#22D3EE); box-shadow:0 0 10px rgba(96,165,250,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Responsive design, animations, frameworks</p><p class="text-xs font-bold text-blue-400">90%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">Responsive design, animations, frameworks</p>
                     </div>
                 </div>
 
@@ -822,10 +433,7 @@
                             </div>
                             <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="70" style="background:linear-gradient(90deg,#C084FC,#F472B6); box-shadow:0 0 10px rgba(192,132,252,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Wireframing, prototyping, user research</p><p class="text-xs font-bold text-purple-400">70%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">Wireframing, prototyping, user research</p>
                     </div>
                 </div>
 
@@ -846,10 +454,7 @@
                             </div>
                             <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="70" style="background:linear-gradient(90deg,#F472B6,#FB7185); box-shadow:0 0 10px rgba(244,114,182,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Prototyping, collaboration, design systems</p><p class="text-xs font-bold text-pink-400">70%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">Prototyping, collaboration, design systems</p>
                     </div>
                 </div>
 
@@ -870,10 +475,7 @@
                             </div>
                             <span class="skill-badge badge-beginner">Beginner</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="40" style="background:linear-gradient(90deg,#F87171,#FB923C); box-shadow:0 0 10px rgba(248,113,113,.4);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">MVC, routing, database integration</p><p class="text-xs font-bold text-red-400">40%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">MVC, routing, database integration</p>
                     </div>
                 </div>
 
@@ -894,10 +496,7 @@
                             </div>
                             <span class="skill-badge badge-intermediate">Intermediate</span>
                         </div>
-                        <div class="progress-bar mb-2">
-                            <div class="progress-fill" data-progress="65" style="background:linear-gradient(90deg,#FB923C,#FBBF24); box-shadow:0 0 10px rgba(251,146,60,.45);"></div>
-                        </div>
-                        <div class="flex justify-between"><p class="text-[11px] text-[#3D5570]">Queries, optimization, data modeling</p><p class="text-xs font-bold text-orange-400">65%</p></div>
+                        <p class="text-[11px] text-[#6B7F98] leading-relaxed">Queries, optimization, data modeling</p>
                     </div>
                 </div>
 
@@ -1086,6 +685,32 @@
                     </div>
                 </div>
 
+                 <!-- Project 4 -->
+                <div class="project-card group">
+                    <div class="project-img-wrap">
+                        <img src="uploads/EliteAviaton.png" alt="Website UMKM" loading="lazy">
+                        <div class="project-overlay"></div>
+                        <div class="absolute top-3 left-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-1 group-hover:translate-y-0">
+                            <span class="skill-badge badge-advanced text-[10px] backdrop-blur-md bg-black/30">Elite Aviation</span>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6">
+                        <h3 class="font-display font-bold text-lg text-white mb-2">Website Private Jet</h3>
+                        <p class="text-[#94A3B8] text-sm mb-5 leading-relaxed">
+                           Where excellence meets the horizon. Discover our world-class collection of private jets.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex gap-2">
+                                <span class="skill-badge badge-expert" style="font-size:9px">HTML</span>
+                                <span class="skill-badge badge-advanced" style="font-size:9px">CSS</span>
+                            </div>
+                            <a href="https://precious-dango-5c2c42.netlify.app/" target="_blank" class="btn-ghost text-xs px-4 py-2">
+                                <i class="fas fa-external-link-alt text-xs"></i> Visit
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1114,7 +739,7 @@
             <div class="flex flex-wrap justify-center gap-4 sm:gap-5 max-w-4xl mx-auto">
 
                 <!-- LinkedIn -->
-                <a href="https://linkedin.com/in/FachriNandraSyahputra" target="_blank" rel="noopener noreferrer"
+                <a href="https://www.linkedin.com/in/fachri-nandra-syahputra-20ba88366/" target="_blank" rel="noopener noreferrer"
                     class="contact-card w-40 sm:w-44 group">
                     <img src="uploads/linkedin.png" alt="LinkedIn" class="w-11 mb-3 transition-transform duration-400 group-hover:scale-110">
                     <h3 class="font-display font-bold text-sm text-teal-300 mb-1">LinkedIn</h3>
@@ -1141,11 +766,11 @@
                 </a>
 
                 <!-- WhatsApp -->
-                <a href="https://wa.me/6285161858758?text=Halo%20Nandra%2C%20saya%20ingin%20bertanya%20tentang%20project%20Anda" target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/6285163548400?text=Halo%20Nandra%2C%20saya%20ingin%20bertanya%20tentang%20project%20Anda" target="_blank" rel="noopener noreferrer"
                     class="contact-card w-40 sm:w-44 group">
                     <img src="uploads/pp wa.png" alt="WhatsApp" class="w-11 mb-3 brightness-110 transition-transform duration-400 group-hover:scale-110">
                     <h3 class="font-display font-bold text-sm text-green-400 mb-1">WhatsApp</h3>
-                    <p class="text-[11px] text-[#3D5570] mb-3">+62 851 6185 8758</p>
+                    <p class="text-[11px] text-[#3D5570] mb-3">+62 851 6354 8400</p>
                     <span class="skill-badge" style="background:rgba(74,222,128,.12);color:#4ADE80;border:1px solid rgba(74,222,128,.28);font-size:10px"><i class="fas fa-comment-dots text-[9px]"></i> Chat</span>
                 </a>
 
@@ -1220,3 +845,5 @@
 
 </body>
 </html>
+
+
